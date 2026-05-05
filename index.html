@@ -19,13 +19,13 @@
       --maroon:   #9b1c3a;
       --maroon-d: #7f1530;
       --maroon-l: #fde8ed;
-      --bg:       #f3f6fc;
+      --bg:       #ffffff;
       --surface:  #ffffff;
       --text:     #0f172a;
       --muted:    #64748b;
       --border:   #e2e8f0;
       --radius:   20px;
-      --shadow:   0 4px 28px rgba(15,23,42,.07);
+      --shadow:   0 4px 28px rgba(15,23,42,.09);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -43,7 +43,7 @@
       position: fixed;
       border-radius: 50%;
       filter: blur(100px);
-      opacity: .16;
+      opacity: 0;
       pointer-events: none;
       z-index: 0;
     }
@@ -60,7 +60,7 @@
     /* ── NAVBAR ── */
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,.78);
+      background: rgba(255,255,255,.98);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(226,232,240,.8);
@@ -70,22 +70,6 @@
     }
 
     .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-
-    .logo-icon {
-      width: 46px; height: 46px;
-      background: linear-gradient(135deg, var(--blue) 0%, var(--green) 100%);
-      border-radius: 13px;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 800; font-size: 15px;
-      color: #fff; letter-spacing: -1px;
-      box-shadow: 0 4px 14px rgba(37,99,235,.3);
-      flex-shrink: 0;
-    }
-
-    .logo-text { display: flex; flex-direction: column; line-height: 1.15; }
-    .logo-text .company  { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 15px; color: var(--blue); }
-    .logo-text .division { font-size: 11px; font-weight: 400; color: var(--muted); letter-spacing: .04em; }
 
     .nav-badge {
       background: linear-gradient(90deg, var(--green), var(--blue));
@@ -128,6 +112,14 @@
     @keyframes pulse {
       0%,100% { opacity:1; transform:scale(1); }
       50%      { opacity:.35; transform:scale(1.6); }
+    }
+
+    .hero-brand {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      font-weight: 600;
+      color: var(--blue);
+      letter-spacing: .01em;
     }
 
     .hero-title {
@@ -474,11 +466,7 @@
   <!-- ═══════════════ NAVBAR ═══════════════ -->
   <nav>
     <a href="#" class="nav-logo">
-      <div class="logo-icon">HG</div>
-      <div class="logo-text">
-        <span class="company">HCL GUVI</span>
-        <span class="division">Learning &amp; Development</span>
-      </div>
+      <img src="guvi.png" alt="HCL GUVI Logo" style="height:42px; width:auto; object-fit:contain;">
     </a>
     <span class="nav-badge">🎓 AI / ML Study Hub</span>
   </nav>
@@ -492,6 +480,7 @@
       </div>
 
       <h1 class="hero-title">
+        <span class="hero-brand">HCL GUVI's</span><br>
         DataMind<br>
         <span class="gradient-text">Study Hub</span>
       </h1>
