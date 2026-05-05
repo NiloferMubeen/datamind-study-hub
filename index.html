@@ -207,44 +207,6 @@
       display: flex; align-items: center; justify-content: center;
     }
 
-    .ring {
-      position: absolute;
-      border-radius: 50%;
-      border: 1.8px dashed;
-      animation: spinRing linear infinite;
-    }
-    .ring-1 { inset: 0%;  border-color: rgba(37,99,235,.2);   animation-duration: 30s; }
-    .ring-2 { inset: 12%; border-color: rgba(29,184,110,.22); animation-duration: 20s; animation-direction: reverse; }
-    .ring-3 { inset: 24%; border-color: rgba(233,30,140,.2);  animation-duration: 13s; }
-    @keyframes spinRing { to { transform: rotate(360deg); } }
-
-    .orb {
-      position: absolute;
-      width: 11px; height: 11px;
-      border-radius: 50%;
-      top: 50%; left: 50%;
-    }
-    .orb-1 { background: var(--blue);   box-shadow: 0 0 10px var(--blue);   animation: orbit1 30s linear infinite; }
-    .orb-2 { background: var(--green);  box-shadow: 0 0 10px var(--green);  animation: orbit2 20s linear infinite; }
-    .orb-3 { background: var(--pink);   box-shadow: 0 0 10px var(--pink);   animation: orbit3 13s linear infinite; }
-    .orb-4 { background: var(--maroon); box-shadow: 0 0 8px var(--maroon);  animation: orbit4 22s linear infinite; width:8px; height:8px; }
-
-    @keyframes orbit1 {
-      from { transform: rotate(0deg)   translateX(250px) rotate(0deg)   translate(-50%,-50%); }
-      to   { transform: rotate(360deg) translateX(250px) rotate(-360deg) translate(-50%,-50%); }
-    }
-    @keyframes orbit2 {
-      from { transform: rotate(120deg)  translateX(188px) rotate(-120deg)  translate(-50%,-50%); }
-      to   { transform: rotate(480deg)  translateX(188px) rotate(-480deg)  translate(-50%,-50%); }
-    }
-    @keyframes orbit3 {
-      from { transform: rotate(220deg) translateX(125px) rotate(-220deg) translate(-50%,-50%); }
-      to   { transform: rotate(580deg) translateX(125px) rotate(-580deg) translate(-50%,-50%); }
-    }
-    @keyframes orbit4 {
-      from { transform: rotate(300deg) translateX(220px) rotate(-300deg) translate(-50%,-50%); }
-      to   { transform: rotate(660deg) translateX(220px) rotate(-660deg) translate(-50%,-50%); }
-    }
 
     /* Image placeholder — replace with your img tag */
     .img-drop {
@@ -571,13 +533,7 @@
     <!-- HERO IMAGE — replace .img-drop with your <img> tag -->
     <div class="hero-right">
       <div class="image-stage">
-        <div class="ring ring-1"></div>
-        <div class="ring ring-2"></div>
-        <div class="ring ring-3"></div>
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-        <div class="orb orb-4"></div>
+
         <!--
           REPLACE THIS .img-drop DIV WITH YOUR IMAGE:
           <img src="your-image.png" alt="DataMind Hub"
@@ -585,9 +541,9 @@
                       position:relative; z-index:2;">
         -->
         <img src="lap.png" alt="DataMind Hub"
-             style="width:58%; position:relative; z-index:2;
+             style="width:90%; position:relative; z-index:2;
                     animation:floatY 5s ease-in-out infinite;
-                    filter:drop-shadow(0 20px 40px rgba(37,99,235,.2));">
+                    filter:drop-shadow(0 24px 48px rgba(37,99,235,.18));">
       </div>
     </div>
   </section>
@@ -701,7 +657,7 @@
       </a>
 
       <!-- 7 RAG -->
-      <a href="https://rag-study-app.onrender.com/" class="card c-pink">
+      <a href="https://rag-study-app.onrender.com/" target="_blank" rel="noopener noreferrer" class="card c-pink">
         <div class="card-top">
           <div class="card-icon">📎</div>
           <span class="card-tag">Gen AI</span>
