@@ -16,7 +16,9 @@
       --pink:     #e91e8c;
       --pink-d:   #c2166f;
       --pink-l:   #fce7f3;
-      --maroon:   #9b1c3a;
+      --yellow:   #f59e0b;
+      --yellow-d: #d97706;
+      --yellow-l: #fef3c7;
       --maroon-d: #7f1530;
       --maroon-l: #fde8ed;
       --bg:       #ffffff;
@@ -286,6 +288,7 @@
     .card:nth-child(6){animation-delay:.30s}
     .card:nth-child(7){animation-delay:.35s}
     .card:nth-child(8){animation-delay:.40s}
+    .card:nth-child(9){animation-delay:.45s}
 
     @keyframes fadeUp {
       from { opacity:0; transform:translateY(28px); }
@@ -308,6 +311,12 @@
       opacity:0; transition:opacity .3s;
     }
     .card:hover::after { opacity:1; }
+
+    .c-yellow::before { background: linear-gradient(90deg,var(--yellow),#fcd34d); }
+    .c-yellow::after  { background: radial-gradient(circle at 20% 20%,rgba(245,158,11,.07),transparent 70%); }
+    .c-yellow .card-icon { background:var(--yellow-l); color:var(--yellow-d); }
+    .c-yellow .card-tag  { background:var(--yellow-l); color:var(--yellow-d); }
+    .c-yellow .card-arrow{ color:var(--yellow-d); }
 
     /* Color themes */
     .c-green::before { background: linear-gradient(90deg,var(--green),#6ee7b7); }
@@ -494,7 +503,7 @@
 
       <div class="hero-stats">
         <div class="stat">
-          <span class="stat-num s-green">8+</span>
+          <span class="stat-num s-green">9+</span>
           <span class="stat-label">Modules</span>
         </div>
         <div class="stat">
@@ -544,7 +553,7 @@
         <p class="section-label">📚 Study Modules</p>
         <h2 class="section-title">Choose Your<br>Learning Path</h2>
       </div>
-      <span class="section-count">8 modules available</span>
+      <span class="section-count">9 modules available</span>
     </div>
 
     <div class="cards">
@@ -565,7 +574,23 @@
         </div>
       </a>
 
-      <!-- 2 ML Supervised -->
+      <!-- 2 Feature Engineering -->
+      <a href="https://feature-engineering-app.onrender.com" class="card c-yellow">
+        <div class="card-top">
+          <div class="card-icon">⚙️</div>
+          <span class="card-tag">Foundation</span>
+        </div>
+        <div>
+          <h3 class="card-title">Feature Engineering</h3>
+          <p class="card-desc">Transform raw variables into powerful features — encoding, scaling, binning, feature selection, and creation for better model performance.</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-meta">Scikit-learn · Pandas · Stats</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- 3 ML Supervised -->
       <a href="#" class="card c-blue">
         <div class="card-top">
           <div class="card-icon">🎯</div>
@@ -581,7 +606,7 @@
         </div>
       </a>
 
-      <!-- 3 ML Unsupervised -->
+      <!-- 4 ML Unsupervised -->
       <a href="#" class="card c-pink">
         <div class="card-top">
           <div class="card-icon">🔍</div>
@@ -597,7 +622,7 @@
         </div>
       </a>
 
-      <!-- 4 Deep Learning -->
+      <!-- 5 Deep Learning -->
       <a href="#" class="card c-maroon">
         <div class="card-top">
           <div class="card-icon">🧠</div>
@@ -613,7 +638,7 @@
         </div>
       </a>
 
-      <!-- 5 CNN -->
+      <!-- 6 CNN -->
       <a href="#" class="card c-blue">
         <div class="card-top">
           <div class="card-icon">🖼️</div>
@@ -629,8 +654,8 @@
         </div>
       </a>
 
-      <!-- 6 NLP -->
-      <a href="#" class="card c-green">
+      <!-- 7 NLP -->
+      <a href="#" class="card c-pink">
         <div class="card-top">
           <div class="card-icon">💬</div>
           <span class="card-tag">Language AI</span>
@@ -645,8 +670,8 @@
         </div>
       </a>
 
-      <!-- 7 RAG -->
-      <a href="https://rag-study-app.onrender.com/" target="_blank" rel="noopener noreferrer" class="card c-pink">
+      <!-- 8 RAG -->
+      <a href="https://rag-study-app.onrender.com/" target="_blank" rel="noopener noreferrer" class="card c-maroon">
         <div class="card-top">
           <div class="card-icon">📎</div>
           <span class="card-tag">Gen AI</span>
@@ -661,8 +686,8 @@
         </div>
       </a>
 
-      <!-- 8 Gen AI -->
-      <a href="#" class="card c-maroon">
+      <!-- 9 Gen AI -->
+      <a href="#" class="card c-green">
         <div class="card-top">
           <div class="card-icon">✨</div>
           <span class="card-tag">Gen AI</span>
