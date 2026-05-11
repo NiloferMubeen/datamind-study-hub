@@ -1,350 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DataMind Hub – HCL GUVI</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Nunito:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --green:    #1db86e;
-      --green-d:  #159a57;
-      --green-l:  #d4f5e5;
-      --blue:     #2563eb;
-      --blue-d:   #1d4ed8;
-      --blue-l:   #dbeafe;
-      --pink:     #e91e8c;
-      --pink-d:   #c2166f;
-      --pink-l:   #fce7f3;
-      --yellow:   #f59e0b;
-      --yellow-d: #d97706;
-      --yellow-l: #fef3c7;
-      --maroon-d: #7f1530;
-      --maroon-l: #fde8ed;
-      --bg:       #ffffff;
-      --surface:  #ffffff;
-      --text:     #0f172a;
-      --muted:    #64748b;
-      --border:   #e2e8f0;
-      --radius:   20px;
-      --shadow:   0 4px 28px rgba(15,23,42,.09);
+      --green:    #1db86e; --green-d:  #159a57; --green-l:  #d4f5e5;
+      --blue:     #2563eb; --blue-d:   #1d4ed8; --blue-l:   #dbeafe;
+      --pink:     #e91e8c; --pink-d:   #c2166f; --pink-l:   #fce7f3;
+      --maroon:   #9b1c3a; --maroon-d: #7f1530; --maroon-l: #fde8ed;
+      --yellow:   #f59e0b; --yellow-d: #d97706; --yellow-l: #fef3c7;
+      --bg:       #ffffff; --surface:  #ffffff;
+      --text:     #0f172a; --muted:    #64748b; --border:   #e2e8f0;
+      --radius:   20px;    --shadow:   0 4px 28px rgba(15,23,42,.09);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Nunito', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-    }
-
-    /* ── BACKGROUND BLOBS ── */
-    .blob {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(100px);
-      opacity: 0;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .blob-1 { width: 600px; height: 600px; background: var(--green);  top: -180px; left: -150px; animation: blobMove 18s ease-in-out infinite alternate; }
-    .blob-2 { width: 450px; height: 450px; background: var(--blue);   top: 30%;   right: -120px; animation: blobMove 22s ease-in-out infinite alternate-reverse; }
-    .blob-3 { width: 380px; height: 380px; background: var(--pink);   bottom: -80px; left: 30%; animation: blobMove 15s ease-in-out infinite alternate; }
-    .blob-4 { width: 300px; height: 300px; background: var(--maroon); top: 55%;   left: 10%;  animation: blobMove 20s ease-in-out infinite alternate-reverse; }
-
-    @keyframes blobMove {
-      from { transform: translate(0, 0) scale(1); }
-      to   { transform: translate(30px, 20px) scale(1.08); }
-    }
+    body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
 
     /* ── NAVBAR ── */
     nav {
       position: sticky; top: 0; z-index: 100;
       background: rgba(255,255,255,.98);
       backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(226,232,240,.8);
-      padding: 0 6%;
-      height: 70px;
+      border-bottom: 1px solid var(--border);
+      padding: 0 6%; height: 70px;
       display: flex; align-items: center; justify-content: space-between;
     }
-
-    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .nav-logo img { height: 42px; width: auto; object-fit: contain; }
     .nav-badge {
       background: linear-gradient(90deg, var(--green), var(--blue));
       color: #fff; font-size: 12px; font-weight: 600;
-      padding: 5px 14px; border-radius: 999px;
-      letter-spacing: .04em;
+      padding: 5px 14px; border-radius: 999px; letter-spacing: .04em;
     }
+
+    /* ── PAGE TABS ── */
+    .tabs-bar {
+      position: sticky; top: 70px; z-index: 99;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center;
+      padding: 0 6%; gap: 6px;
+    }
+
+    .tab-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 18px 22px 16px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px; font-weight: 600;
+      color: var(--muted);
+      border: none; background: none; cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -1px;
+      transition: color .2s, border-color .2s;
+      letter-spacing: -.01em;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
+    .tab-btn .tab-count {
+      font-size: 10px; font-weight: 700;
+      padding: 2px 8px; border-radius: 999px;
+      background: var(--blue-l); color: var(--blue-d);
+      transition: background .2s, color .2s;
+    }
+    .tab-btn:nth-child(2) .tab-count { background: var(--green-l); color: var(--green-d); }
+    .tab-btn.active .tab-count { background: var(--blue); color: #fff; }
+    .tab-btn:nth-child(2).active .tab-count { background: var(--green); color: #fff; }
+
+    /* ── PAGES ── */
+    .page { display: none; }
+    .page.active { display: block; }
 
     /* ── HERO ── */
     .hero {
       position: relative; z-index: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: 48px;
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 90px 6% 70px;
-      min-height: 88vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 48px;
+      max-width: 1300px; margin: 0 auto;
+      padding: 80px 6% 60px; min-height: 82vh;
     }
-
     .hero-left { display: flex; flex-direction: column; gap: 26px; }
 
     .eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      width: fit-content;
-      background: var(--green-l);
-      border: 1px solid rgba(29,184,110,.3);
-      color: var(--green-d);
-      font-size: 11.5px; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 8px; width: fit-content;
+      background: var(--green-l); border: 1px solid rgba(29,184,110,.3);
+      color: var(--green-d); font-size: 11.5px; font-weight: 600;
       padding: 6px 15px; border-radius: 999px;
       letter-spacing: .07em; text-transform: uppercase;
     }
     .eyebrow-dot {
-      width: 7px; height: 7px;
-      background: var(--green);
-      border-radius: 50%;
+      width: 7px; height: 7px; background: var(--green); border-radius: 50%;
       animation: pulse 1.8s ease-in-out infinite;
     }
-    @keyframes pulse {
-      0%,100% { opacity:1; transform:scale(1); }
-      50%      { opacity:.35; transform:scale(1.6); }
-    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.35;transform:scale(1.6)} }
 
     .hero-brand {
       font-family: 'Poppins', sans-serif;
-      font-size: clamp(1rem, 2vw, 1.3rem);
-      font-weight: 600;
-      color: var(--blue);
-      letter-spacing: .01em;
+      font-size: clamp(1rem, 2vw, 1.3rem); font-weight: 600;
+      color: var(--blue); letter-spacing: .01em;
     }
-
     .hero-title {
       font-family: 'Poppins', sans-serif;
-      font-size: clamp(2.8rem, 5vw, 4.6rem);
-      font-weight: 800;
-      line-height: 1.08;
-      letter-spacing: -.02em;
+      font-size: clamp(2.8rem, 5vw, 4.4rem);
+      font-weight: 800; line-height: 1.08; letter-spacing: -.02em;
     }
-
-    .hero-title .gradient-text {
+    .gradient-text {
       background: linear-gradient(110deg, var(--blue) 0%, var(--green) 45%, var(--pink) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-
-    .hero-desc {
-      font-size: 1.05rem;
-      color: var(--muted);
-      line-height: 1.78;
-      max-width: 490px;
-      font-weight: 300;
-    }
+    .hero-desc { font-size: 1.05rem; color: var(--muted); line-height: 1.78; max-width: 490px; font-weight: 300; }
 
     .hero-stats {
       display: flex; gap: 30px; flex-wrap: wrap;
-      padding: 20px 24px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      width: fit-content;
+      padding: 20px 24px; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 16px;
+      box-shadow: var(--shadow); width: fit-content;
     }
-
     .stat { display: flex; flex-direction: column; gap: 3px; }
-    .stat-num {
-      font-family: 'Poppins', sans-serif;
-      font-size: 1.45rem; font-weight: 800;
-    }
-    .stat-num.s-green  { color: var(--green); }
-    .stat-num.s-blue   { color: var(--blue); }
-    .stat-num.s-maroon { color: var(--maroon); }
+    .stat-num { font-family: 'Poppins', sans-serif; font-size: 1.45rem; font-weight: 800; }
+    .s-green { color: var(--green); } .s-blue { color: var(--blue); } .s-maroon { color: var(--maroon); }
     .stat-label { font-size: 11px; color: var(--muted); font-weight: 500; letter-spacing: .04em; text-transform: uppercase; }
 
     .hero-cta { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
-
     .btn-primary {
       display: inline-flex; align-items: center; gap: 8px;
-      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-d) 100%);
+      background: linear-gradient(135deg, var(--blue), var(--blue-d));
       color: #fff; font-weight: 600; font-size: 15px;
-      padding: 14px 28px; border-radius: 999px;
-      text-decoration: none;
+      padding: 14px 28px; border-radius: 999px; text-decoration: none;
       box-shadow: 0 6px 24px rgba(37,99,235,.35);
       transition: transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s;
     }
     .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(37,99,235,.45); }
-
     .btn-ghost {
       display: inline-flex; align-items: center; gap: 6px;
       color: var(--muted); font-size: 14px; font-weight: 500;
-      text-decoration: none;
-      transition: color .2s;
+      text-decoration: none; transition: color .2s;
     }
     .btn-ghost:hover { color: var(--text); }
 
-    /* ── HERO IMAGE AREA ── */
-    .hero-right {
-      display: flex; align-items: center; justify-content: center;
-      position: relative;
-    }
-
-    .image-stage {
-      position: relative;
-      width: 100%; max-width: 500px;
-      aspect-ratio: 1;
-      display: flex; align-items: center; justify-content: center;
-    }
-
-
-    /* Image placeholder — replace with your img tag */
-    .img-drop {
-      position: relative; z-index: 2;
-      width: 52%; height: 52%;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 10px;
-      text-align: center;
-      animation: floatY 5s ease-in-out infinite;
-      border-radius: 50%;
-      border: 2px dashed rgba(100,116,139,.25);
-      background: radial-gradient(circle at 40% 30%, rgba(29,184,110,.08), rgba(37,99,235,.05));
-    }
-    .img-drop svg   { opacity: .3; }
-    .img-drop span  { font-size: 11px; color: var(--muted); line-height: 1.5; }
-
-    @keyframes floatY {
-      0%,100% { transform: translateY(0px); }
-      50%      { transform: translateY(-14px); }
-    }
+    /* ── HERO RIGHT ── */
+    .hero-right { display: flex; align-items: center; justify-content: center; }
+    .image-stage { position: relative; width: 100%; max-width: 500px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; }
+    @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
 
     /* ── SECTION ── */
-    .section {
-      position: relative; z-index: 1;
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 20px 6% 100px;
-    }
+    .section { max-width: 1300px; margin: 0 auto; padding: 50px 6% 80px; }
 
-    .section-head {
-      display: flex; align-items: flex-end; justify-content: space-between;
-      margin-bottom: 48px;
-      flex-wrap: wrap; gap: 16px;
+    /* ── PAGE 2 HERO MINI ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--green) 100%);
+      padding: 52px 6%;
+      position: relative; overflow: hidden;
     }
-
-    .section-label {
-      font-size: 11px; font-weight: 600;
-      letter-spacing: .1em; text-transform: uppercase;
-      color: var(--green); margin-bottom: 8px;
+    .page-hero::before {
+      content:'';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
     }
-
-    .section-title {
-      font-family: 'Poppins', sans-serif;
-      font-size: clamp(1.9rem, 3vw, 2.8rem);
-      font-weight: 800; letter-spacing: -.02em; line-height: 1.08;
-    }
-
-    .section-count {
-      font-size: 13px; color: var(--muted);
-      background: var(--surface);
-      border: 1px solid var(--border);
+    .page-hero-inner { max-width: 1300px; margin: 0 auto; position: relative; z-index: 1; }
+    .page-hero h2 { font-family: 'Poppins', sans-serif; font-size: clamp(1.8rem,3vw,2.6rem); font-weight: 800; color: #fff; letter-spacing: -.02em; margin-bottom: 8px; }
+    .page-hero p  { font-size: 15px; color: rgba(255,255,255,.8); font-weight: 300; max-width: 520px; line-height: 1.7; }
+    .page-hero-chips { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+    .page-hero-chip {
+      background: rgba(255,255,255,.15); backdrop-filter: blur(8px);
+      color: #fff; font-size: 12px; font-weight: 600;
       padding: 6px 16px; border-radius: 999px;
-      white-space: nowrap;
-      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.25); letter-spacing: .04em;
     }
+
+    /* ── SECTION HEADER ── */
+    .section-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 40px; flex-wrap: wrap; gap: 16px; }
+    .section-label { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+    .section-title { font-family: 'Poppins', sans-serif; font-size: clamp(1.8rem,3vw,2.6rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.08; }
+    .section-count { font-size: 13px; color: var(--muted); background: var(--surface); border: 1px solid var(--border); padding: 6px 16px; border-radius: 999px; white-space: nowrap; box-shadow: var(--shadow); }
 
     /* ── CARDS ── */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(268px, 1fr));
-      gap: 24px;
-    }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px,1fr)); gap: 24px; }
 
     .card {
-      background: var(--surface);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      padding: 30px 26px 24px;
-      text-decoration: none;
-      color: inherit;
-      position: relative;
-      overflow: hidden;
+      background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border);
+      padding: 30px 26px 24px; text-decoration: none; color: inherit;
+      position: relative; overflow: hidden;
       display: flex; flex-direction: column; gap: 18px;
       box-shadow: var(--shadow);
       transition: transform .28s cubic-bezier(.34,1.56,.64,1), box-shadow .28s ease;
-      opacity: 0;
-      animation: fadeUp .55s ease forwards;
+      opacity: 0; animation: fadeUp .5s ease forwards;
     }
+    .card:hover { transform: translateY(-7px); box-shadow: 0 24px 56px rgba(15,23,42,.13); }
 
-    .card:nth-child(1){animation-delay:.05s}
-    .card:nth-child(2){animation-delay:.10s}
-    .card:nth-child(3){animation-delay:.15s}
-    .card:nth-child(4){animation-delay:.20s}
-    .card:nth-child(5){animation-delay:.25s}
-    .card:nth-child(6){animation-delay:.30s}
-    .card:nth-child(7){animation-delay:.35s}
-    .card:nth-child(8){animation-delay:.40s}
-    .card:nth-child(9){animation-delay:.45s}
-
-    @keyframes fadeUp {
-      from { opacity:0; transform:translateY(28px); }
-      to   { opacity:1; transform:translateY(0); }
-    }
-
-    .card:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 24px 56px rgba(15,23,42,.14);
-    }
-
-    .card::before {
-      content:'';
-      position:absolute; top:0; left:0; right:0; height:4px;
-      border-radius: var(--radius) var(--radius) 0 0;
-    }
-    .card::after {
-      content:'';
-      position:absolute; inset:0; border-radius:var(--radius);
-      opacity:0; transition:opacity .3s;
-    }
+    .card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; border-radius: var(--radius) var(--radius) 0 0; }
+    .card::after  { content:''; position:absolute; inset:0; border-radius:var(--radius); opacity:0; transition:opacity .3s; }
     .card:hover::after { opacity:1; }
 
-    .c-yellow::before { background: linear-gradient(90deg,var(--yellow),#fcd34d); }
-    .c-yellow::after  { background: radial-gradient(circle at 20% 20%,rgba(245,158,11,.07),transparent 70%); }
-    .c-yellow .card-icon { background:var(--yellow-l); color:var(--yellow-d); }
-    .c-yellow .card-tag  { background:var(--yellow-l); color:var(--yellow-d); }
-    .c-yellow .card-arrow{ color:var(--yellow-d); }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+    .card:nth-child(1){animation-delay:.04s} .card:nth-child(2){animation-delay:.08s}
+    .card:nth-child(3){animation-delay:.12s} .card:nth-child(4){animation-delay:.16s}
+    .card:nth-child(5){animation-delay:.20s} .card:nth-child(6){animation-delay:.24s}
+    .card:nth-child(7){animation-delay:.28s} .card:nth-child(8){animation-delay:.32s}
+    .card:nth-child(9){animation-delay:.36s} .card:nth-child(10){animation-delay:.40s}
+    .card:nth-child(11){animation-delay:.44s} .card:nth-child(12){animation-delay:.48s}
+    .card:nth-child(13){animation-delay:.52s} .card:nth-child(14){animation-delay:.56s}
 
     /* Color themes */
-    .c-green::before { background: linear-gradient(90deg,var(--green),#6ee7b7); }
-    .c-green::after  { background: radial-gradient(circle at 20% 20%,rgba(29,184,110,.07),transparent 70%); }
-    .c-green .card-icon { background:var(--green-l); color:var(--green); }
-    .c-green .card-tag  { background:var(--green-l); color:var(--green-d); }
-    .c-green .card-arrow{ color:var(--green); }
+    .c-green::before  { background:linear-gradient(90deg,var(--green),#6ee7b7); }
+    .c-green::after   { background:radial-gradient(circle at 20% 20%,rgba(29,184,110,.07),transparent 70%); }
+    .c-green  .card-icon  { background:var(--green-l);  color:var(--green); }
+    .c-green  .card-tag   { background:var(--green-l);  color:var(--green-d); }
+    .c-green  .card-arrow { color:var(--green); }
 
-    .c-blue::before { background: linear-gradient(90deg,var(--blue),#93c5fd); }
-    .c-blue::after  { background: radial-gradient(circle at 20% 20%,rgba(37,99,235,.07),transparent 70%); }
-    .c-blue .card-icon { background:var(--blue-l); color:var(--blue); }
-    .c-blue .card-tag  { background:var(--blue-l); color:var(--blue-d); }
-    .c-blue .card-arrow{ color:var(--blue); }
+    .c-blue::before   { background:linear-gradient(90deg,var(--blue),#93c5fd); }
+    .c-blue::after    { background:radial-gradient(circle at 20% 20%,rgba(37,99,235,.07),transparent 70%); }
+    .c-blue   .card-icon  { background:var(--blue-l);   color:var(--blue); }
+    .c-blue   .card-tag   { background:var(--blue-l);   color:var(--blue-d); }
+    .c-blue   .card-arrow { color:var(--blue); }
 
-    .c-pink::before { background: linear-gradient(90deg,var(--pink),#f9a8d4); }
-    .c-pink::after  { background: radial-gradient(circle at 20% 20%,rgba(233,30,140,.07),transparent 70%); }
-    .c-pink .card-icon { background:var(--pink-l); color:var(--pink); }
-    .c-pink .card-tag  { background:var(--pink-l); color:var(--pink-d); }
-    .c-pink .card-arrow{ color:var(--pink); }
+    .c-pink::before   { background:linear-gradient(90deg,var(--pink),#f9a8d4); }
+    .c-pink::after    { background:radial-gradient(circle at 20% 20%,rgba(233,30,140,.07),transparent 70%); }
+    .c-pink   .card-icon  { background:var(--pink-l);   color:var(--pink); }
+    .c-pink   .card-tag   { background:var(--pink-l);   color:var(--pink-d); }
+    .c-pink   .card-arrow { color:var(--pink); }
 
-    .c-maroon::before { background: linear-gradient(90deg,var(--maroon),#fb7185); }
-    .c-maroon::after  { background: radial-gradient(circle at 20% 20%,rgba(155,28,58,.07),transparent 70%); }
-    .c-maroon .card-icon { background:var(--maroon-l); color:var(--maroon); }
-    .c-maroon .card-tag  { background:var(--maroon-l); color:var(--maroon-d); }
-    .c-maroon .card-arrow{ color:var(--maroon); }
+    .c-maroon::before { background:linear-gradient(90deg,var(--maroon),#fb7185); }
+    .c-maroon::after  { background:radial-gradient(circle at 20% 20%,rgba(155,28,58,.07),transparent 70%); }
+    .c-maroon .card-icon  { background:var(--maroon-l); color:var(--maroon); }
+    .c-maroon .card-tag   { background:var(--maroon-l); color:var(--maroon-d); }
+    .c-maroon .card-arrow { color:var(--maroon); }
+
+    .c-yellow::before { background:linear-gradient(90deg,var(--yellow),#fcd34d); }
+    .c-yellow::after  { background:radial-gradient(circle at 20% 20%,rgba(245,158,11,.07),transparent 70%); }
+    .c-yellow .card-icon  { background:var(--yellow-l); color:var(--yellow-d); }
+    .c-yellow .card-tag   { background:var(--yellow-l); color:var(--yellow-d); }
+    .c-yellow .card-arrow { color:var(--yellow-d); }
 
     .card-top { display:flex; align-items:flex-start; justify-content:space-between; }
-
     .card-icon {
       width:54px; height:54px; border-radius:15px;
       display:flex; align-items:center; justify-content:center;
@@ -352,381 +244,332 @@
       transition: transform .25s cubic-bezier(.34,1.56,.64,1);
     }
     .card:hover .card-icon { transform: scale(1.12) rotate(-4deg); }
-
-    .card-tag {
-      font-size:10px; font-weight:600;
-      letter-spacing:.08em; text-transform:uppercase;
-      padding:4px 11px; border-radius:999px;
-      margin-top:4px;
-    }
-
-    .card-title {
-      font-family:'Poppins',sans-serif;
-      font-size:1.12rem; font-weight:700;
-      letter-spacing:-.01em; margin-bottom:8px;
-    }
-
-    .card-desc {
-      font-size:13.5px; color:var(--muted);
-      line-height:1.66; font-weight:300;
-    }
-
-    .card-footer {
-      display:flex; align-items:center; justify-content:space-between;
-      padding-top:14px;
-      border-top:1px solid var(--border);
-    }
-
-    .card-meta { font-size:11px; color:var(--muted); font-weight:500; }
-
+    .card-tag { font-size:10px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; padding:4px 11px; border-radius:999px; margin-top:4px; }
+    .card-title { font-family:'Poppins',sans-serif; font-size:1.1rem; font-weight:700; letter-spacing:-.01em; margin-bottom:8px; }
+    .card-desc  { font-size:13.5px; color:var(--muted); line-height:1.66; font-weight:300; }
+    .card-footer { display:flex; align-items:center; justify-content:space-between; padding-top:14px; border-top:1px solid var(--border); }
+    .card-meta  { font-size:11px; color:var(--muted); font-weight:500; }
     .card-arrow {
-      width:32px; height:32px;
-      border-radius:50%; border:1.5px solid currentColor;
+      width:32px; height:32px; border-radius:50%; border:1.5px solid currentColor;
       display:flex; align-items:center; justify-content:center;
-      font-size:14px; font-weight:600;
-      opacity:.65;
-      transition: transform .22s, opacity .22s;
+      font-size:14px; opacity:.65; transition:transform .22s, opacity .22s;
     }
     .card:hover .card-arrow { transform:translateX(3px); opacity:1; }
 
     /* ── COMING SOON BANNER ── */
-    .coming-soon {
-      position:relative; z-index:1;
-      max-width:1300px; margin: 0 auto 80px;
-      padding: 0 6%;
-    }
-
+    .coming-soon { max-width:1300px; margin:0 auto 60px; padding:0 6%; }
     .cs-inner {
       background: linear-gradient(135deg, var(--blue) 0%, var(--green) 60%, var(--pink) 100%);
-      border-radius: 22px;
-      padding: 40px 48px;
+      border-radius:22px; padding:40px 48px;
       display:flex; align-items:center; justify-content:space-between;
-      gap:24px; flex-wrap:wrap;
-      position:relative; overflow:hidden;
+      gap:24px; flex-wrap:wrap; position:relative; overflow:hidden;
     }
-
     .cs-inner::before {
-      content:'';
-      position:absolute; inset:0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      content:''; position:absolute; inset:0;
+      background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
     }
-
     .cs-text { position:relative; z-index:1; }
-    .cs-text h3 { font-family:'Poppins',sans-serif; font-size:1.5rem; font-weight:800; color:#fff; letter-spacing:-.02em; margin-bottom:6px; }
+    .cs-text h3 { font-family:'Poppins',sans-serif; font-size:1.5rem; font-weight:800; color:#fff; margin-bottom:6px; }
     .cs-text p  { font-size:14px; color:rgba(255,255,255,.75); font-weight:300; }
-
-    .cs-chips { display:flex; gap:10px; flex-wrap:wrap; position:relative; z-index:1; }
-    .cs-chip {
-      background:rgba(255,255,255,.15);
-      backdrop-filter:blur(8px);
-      color:#fff; font-size:12px; font-weight:500;
-      padding:7px 16px; border-radius:999px;
-      border:1px solid rgba(255,255,255,.25);
-      letter-spacing:.04em;
-    }
+    .cs-chips   { display:flex; gap:10px; flex-wrap:wrap; position:relative; z-index:1; }
+    .cs-chip    { background:rgba(255,255,255,.15); backdrop-filter:blur(8px); color:#fff; font-size:12px; font-weight:500; padding:7px 16px; border-radius:999px; border:1px solid rgba(255,255,255,.25); }
 
     /* ── FOOTER ── */
     footer {
-      position:relative; z-index:1;
-      background:rgba(255,255,255,.65);
-      backdrop-filter:blur(14px);
-      border-top:1px solid var(--border);
-      padding:28px 6%;
-      display:flex; align-items:center; justify-content:space-between;
-      flex-wrap:wrap; gap:14px;
+      background: rgba(255,255,255,.95); border-top:1px solid var(--border);
+      padding:28px 6%; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;
     }
-
     .footer-left { font-size:13px; color:var(--muted); }
     .footer-left strong { color:var(--text); }
-
     .footer-chips { display:flex; gap:8px; flex-wrap:wrap; }
-    .fchip {
-      font-size:11px; font-weight:600;
-      padding:4px 13px; border-radius:999px;
-      letter-spacing:.04em;
-    }
+    .fchip { font-size:11px; font-weight:600; padding:4px 13px; border-radius:999px; }
     .fchip-green  { background:var(--green-l);  color:var(--green-d); }
     .fchip-blue   { background:var(--blue-l);   color:var(--blue-d); }
     .fchip-pink   { background:var(--pink-l);   color:var(--pink-d); }
     .fchip-maroon { background:var(--maroon-l); color:var(--maroon-d); }
 
     /* ── RESPONSIVE ── */
-    @media (max-width:900px) {
-      .hero { grid-template-columns:1fr; min-height:unset; padding:60px 6% 40px; gap:36px; }
-      .hero-right { display:none; }
+    @media(max-width:900px){
+      .hero{grid-template-columns:1fr;min-height:unset;padding:60px 6% 40px;}
+      .hero-right{display:none;}
     }
-    @media (max-width:600px) {
-      nav { padding:0 4%; }
-      .nav-badge { display:none; }
-      .hero { padding:50px 4% 30px; }
-      .section, .coming-soon { padding-left:4%; padding-right:4%; }
-      .cs-inner { padding:28px 26px; }
-      footer { padding:24px 4%; }
+    @media(max-width:600px){
+      nav{padding:0 4%;} .hero{padding:50px 4% 30px;}
+      .section,.coming-soon{padding-left:4%;padding-right:4%;}
+      .cs-inner{padding:28px 24px;} footer{padding:24px 4%;}
+      .tabs-bar{padding:0 4%;}
+      .tab-btn{padding:16px 14px 14px;font-size:13px;}
     }
   </style>
 </head>
 <body>
 
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-  <div class="blob blob-3"></div>
-  <div class="blob blob-4"></div>
-
   <!-- ═══════════════ NAVBAR ═══════════════ -->
   <nav>
     <a href="#" class="nav-logo">
-      <img src="guvi.png" alt="HCL GUVI Logo" style="height:42px; width:auto; object-fit:contain;">
+      <img src="guvi.png" alt="HCL GUVI Logo"/>
     </a>
     <span class="nav-badge">🎓 AI / ML Study Hub</span>
   </nav>
 
-  <!-- ═══════════════ HERO ═══════════════ -->
-  <section class="hero">
-    <div class="hero-left">
-      <div class="eyebrow">
-        <div class="eyebrow-dot"></div>
-        Live Learning Platform
-      </div>
-
-      <h1 class="hero-title">
-        <span class="hero-brand">HCL GUVI's</span><br>
-        DataMind<br>
-        <span class="gradient-text">Study Hub</span>
-      </h1>
-
-      <p class="hero-desc">
-        Your curated gateway to AI &amp; Machine Learning mastery. Explore
-        hands-on, interactive study apps covering the full spectrum — from
-        data foundations to cutting-edge generative intelligence — crafted
-        for HCL GUVI learners.
-      </p>
-
-      <div class="hero-stats">
-        <div class="stat">
-          <span class="stat-num s-green">9+</span>
-          <span class="stat-label">Modules</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num s-blue">ML · DL · AI</span>
-          <span class="stat-label">Coverage</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num s-maroon">Live</span>
-          <span class="stat-label">Deployed Apps</span>
-        </div>
-      </div>
-
-      <div class="hero-cta">
-        <a href="#modules" class="btn-primary">
-          Explore Modules
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <a href="#" class="btn-ghost">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-          More topics coming soon
-        </a>
-      </div>
-    </div>
-
-    <!-- HERO IMAGE — replace .img-drop with your <img> tag -->
-    <div class="hero-right">
-      <div class="image-stage">
-
-        <!--
-          REPLACE THIS .img-drop DIV WITH YOUR IMAGE:
-          <img src="your-image.png" alt="DataMind Hub"
-               style="width:54%; animation:floatY 5s ease-in-out infinite;
-                      position:relative; z-index:2;">
-        -->
-        <img src="lap.png" alt="DataMind Hub"
-             style="width:90%; position:relative; z-index:2;
-                    animation:floatY 5s ease-in-out infinite;
-                    filter:drop-shadow(0 24px 48px rgba(37,99,235,.18));">
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════ MODULE CARDS ═══════════════ -->
-  <section class="section" id="modules">
-    <div class="section-head">
-      <div>
-        <p class="section-label">📚 Study Modules</p>
-        <h2 class="section-title">Choose Your<br>Learning Path</h2>
-      </div>
-      <span class="section-count">9 modules available</span>
-    </div>
-
-    <div class="cards">
-
-      <!-- 1 Data Cleaning -->
-      <a href="#" class="card c-green">
-        <div class="card-top">
-          <div class="card-icon">🧹</div>
-          <span class="card-tag">Foundation</span>
-        </div>
-        <div>
-          <h3 class="card-title">Data Cleaning</h3>
-          <p class="card-desc">Master raw-data preparation — handle missing values, outliers, duplicates, and inconsistencies to produce analysis-ready datasets.</p>
-        </div>
-        <div class="card-footer">
-          <span class="card-meta">Pandas · NumPy · EDA</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- 2 Feature Engineering -->
-      <a href="https://feature-engineering-app.onrender.com" class="card c-yellow">
-        <div class="card-top">
-          <div class="card-icon">⚙️</div>
-          <span class="card-tag">Foundation</span>
-        </div>
-        <div>
-          <h3 class="card-title">Feature Engineering</h3>
-          <p class="card-desc">Transform raw variables into powerful features — encoding, scaling, binning, feature selection, and creation for better model performance.</p>
-        </div>
-        <div class="card-footer">
-          <span class="card-meta">Scikit-learn · Pandas · Stats</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- 3 ML Supervised -->
-      <a href="#" class="card c-blue">
-        <div class="card-top">
-          <div class="card-icon">🎯</div>
-          <span class="card-tag">ML Core</span>
-        </div>
-        <div>
-          <h3 class="card-title">ML Supervised</h3>
-          <p class="card-desc">Dive into classification &amp; regression — linear models, decision trees, SVMs, ensembles, and model evaluation pipelines.</p>
-        </div>
-        <div class="card-footer">
-          <span class="card-meta">Scikit-learn · XGBoost · RF</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- 4 ML Unsupervised -->
-      <a href="#" class="card c-pink">
-        <div class="card-top">
-          <div class="card-icon">🔍</div>
-          <span class="card-tag">ML Core</span>
-        </div>
-        <div>
-          <h3 class="card-title">ML Unsupervised</h3>
-          <p class="card-desc">Discover hidden patterns with clustering, dimensionality reduction, and anomaly detection — letting data reveal its own structure.</p>
-        </div>
-        <div class="card-footer">
-          <span class="card-meta">K-Means · PCA · DBSCAN</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- 5 Deep Learning -->
-      <a href="#" class="card c-maroon">
-        <div class="card-top">
-          <div class="card-icon">🧠</div>
-          <span class="card-tag">Deep Learning</span>
-        </div>
-        <div>
-          <h3 class="card-title">Deep Learning</h3>
-          <p class="card-desc">Build and train neural networks from scratch — backpropagation, activation functions, optimizers, and regularisation strategies.</p>
-        </div>
-        <div class="card-footer">
-          <span class="card-meta">TensorFlow · Keras · PyTorch</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- 6 CNN -->
-      <a href="#" class="card c-blue">
-        <div class="card-top">
-          <div class="card-icon">🖼️</div>
-          <span class="card-tag">Computer Vision</span>
-        </div>
-        <div>
-          <h3 class="card-title">CNN</h3>
-          <p class="card-desc">Convolutional Neural Networks for image recognition — filters, pooling, feature maps, and architectures like VGG &amp; ResNet.</p>
-        </div>
-        <div class="card-footer">
-          <span class="card-meta">Conv2D · Transfer Learning</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- 7 NLP -->
-      <a href="#" class="card c-pink">
-        <div class="card-top">
-          <div class="card-icon">💬</div>
-          <span class="card-tag">Language AI</span>
-        </div>
-        <div>
-          <h3 class="card-title">NLP</h3>
-          <p class="card-desc">Process and understand human language — tokenisation, word embeddings, sentiment analysis, and BERT fine-tuning.</p>
-        </div>
-        <div class="card-footer">
-          <span class="card-meta">NLTK · spaCy · HuggingFace</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- 8 RAG -->
-      <a href="https://rag-study-app.onrender.com/" target="_blank" rel="noopener noreferrer" class="card c-maroon">
-        <div class="card-top">
-          <div class="card-icon">📎</div>
-          <span class="card-tag">Gen AI</span>
-        </div>
-        <div>
-          <h3 class="card-title">RAG</h3>
-          <p class="card-desc">Retrieval-Augmented Generation — combine vector stores with LLMs to build intelligent, knowledge-grounded Q&amp;A applications.</p>
-        </div>
-        <div class="card-footer">
-          <span class="card-meta">LangChain · FAISS · ChromaDB</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-      <!-- 9 Gen AI -->
-      <a href="#" class="card c-green">
-        <div class="card-top">
-          <div class="card-icon">✨</div>
-          <span class="card-tag">Gen AI</span>
-        </div>
-        <div>
-          <h3 class="card-title">Gen AI</h3>
-          <p class="card-desc">Explore generative models — prompt engineering, LLM APIs, diffusion models, agents, and building real-world GenAI applications.</p>
-        </div>
-        <div class="card-footer">
-          <span class="card-meta">OpenAI · Claude · LangChain</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- ═══════════════ COMING SOON BANNER ═══════════════ -->
-  <div class="coming-soon">
-    <div class="cs-inner">
-      <div class="cs-text">
-        <h3>🚀 More Modules on the Way</h3>
-        <p>We're continuously expanding the hub. New topics are being deployed regularly.</p>
-      </div>
-      <div class="cs-chips">
-        <span class="cs-chip">Recommendation Systems</span>
-        <span class="cs-chip">Computer Vision</span>
-        <span class="cs-chip">Time Series</span>
-        <span class="cs-chip">MLOps</span>
-        <span class="cs-chip">+ More</span>
-      </div>
-    </div>
+  <!-- ═══════════════ TAB BAR ═══════════════ -->
+  <div class="tabs-bar">
+    <button class="tab-btn active" onclick="switchPage('apps')">
+      🚀 Study Apps <span class="tab-count">9</span>
+    </button>
+    <button class="tab-btn" onclick="switchPage('materials')">
+      📂 Study Materials <span class="tab-count">14</span>
+    </button>
   </div>
+
+  <!-- ═══════════════════════════════════════
+       PAGE 1 — STUDY APPS
+  ═══════════════════════════════════════ -->
+  <div id="page-apps" class="page active">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-left">
+        <div class="eyebrow"><div class="eyebrow-dot"></div>Live Learning Platform</div>
+        <h1 class="hero-title">
+          <span class="hero-brand">HCL GUVI's</span><br>
+          DataMind<br>
+          <span class="gradient-text">Study Hub</span>
+        </h1>
+        <p class="hero-desc">Your curated gateway to AI &amp; Machine Learning mastery. Explore hands-on, interactive study apps covering the full spectrum — from data foundations to cutting-edge generative intelligence.</p>
+        <div class="hero-stats">
+          <div class="stat"><span class="stat-num s-green">9+</span><span class="stat-label">Modules</span></div>
+          <div class="stat"><span class="stat-num s-blue">ML · DL · AI</span><span class="stat-label">Coverage</span></div>
+          <div class="stat"><span class="stat-num s-maroon">Live</span><span class="stat-label">Deployed Apps</span></div>
+        </div>
+        <div class="hero-cta">
+          <a href="#apps-cards" class="btn-primary">Explore Modules <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <a href="#" class="btn-ghost" onclick="switchPage('materials');return false;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            View Study Materials
+          </a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="image-stage">
+          <img src="lap.png" alt="DataMind Hub"
+               style="width:90%;position:relative;z-index:2;
+                      animation:floatY 5s ease-in-out infinite;
+                      filter:drop-shadow(0 24px 48px rgba(37,99,235,.18));"/>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPS CARDS -->
+    <section class="section" id="apps-cards">
+      <div class="section-head">
+        <div>
+          <p class="section-label">🚀 Interactive Apps</p>
+          <h2 class="section-title">Choose Your<br>Learning Path</h2>
+        </div>
+        <span class="section-count">9 apps available</span>
+      </div>
+      <div class="cards">
+
+        <a href="#" class="card c-green">
+          <div class="card-top"><div class="card-icon">🧹</div><span class="card-tag">Foundation</span></div>
+          <div><h3 class="card-title">Data Cleaning</h3><p class="card-desc">Master raw-data preparation — handle missing values, outliers, duplicates, and inconsistencies to produce analysis-ready datasets.</p></div>
+          <div class="card-footer"><span class="card-meta">Pandas · NumPy · EDA</span><span class="card-arrow">→</span></div>
+        </a>
+
+        <a href="https://feature-engineering-app.onrender.com/" class="card c-yellow">
+          <div class="card-top"><div class="card-icon">⚙️</div><span class="card-tag">Foundation</span></div>
+          <div><h3 class="card-title">Feature Engineering</h3><p class="card-desc">Transform raw variables into powerful features — encoding, scaling, binning, feature selection, and creation for better model performance.</p></div>
+          <div class="card-footer"><span class="card-meta">Scikit-learn · Pandas · Stats</span><span class="card-arrow">→</span></div>
+        </a>
+
+        <a href="#" class="card c-blue">
+          <div class="card-top"><div class="card-icon">🎯</div><span class="card-tag">ML Core</span></div>
+          <div><h3 class="card-title">ML Supervised</h3><p class="card-desc">Dive into classification &amp; regression — linear models, decision trees, SVMs, ensembles, and model evaluation pipelines.</p></div>
+          <div class="card-footer"><span class="card-meta">Scikit-learn · XGBoost · RF</span><span class="card-arrow">→</span></div>
+        </a>
+
+        <a href="#" class="card c-pink">
+          <div class="card-top"><div class="card-icon">🔍</div><span class="card-tag">ML Core</span></div>
+          <div><h3 class="card-title">ML Unsupervised</h3><p class="card-desc">Discover hidden patterns with clustering, dimensionality reduction, and anomaly detection — letting data reveal its own structure.</p></div>
+          <div class="card-footer"><span class="card-meta">K-Means · PCA · DBSCAN</span><span class="card-arrow">→</span></div>
+        </a>
+
+        <a href="#" class="card c-maroon">
+          <div class="card-top"><div class="card-icon">🧠</div><span class="card-tag">Deep Learning</span></div>
+          <div><h3 class="card-title">Deep Learning</h3><p class="card-desc">Build and train neural networks from scratch — backpropagation, activation functions, optimizers, and regularisation strategies.</p></div>
+          <div class="card-footer"><span class="card-meta">TensorFlow · Keras · PyTorch</span><span class="card-arrow">→</span></div>
+        </a>
+
+        <a href="#" class="card c-blue">
+          <div class="card-top"><div class="card-icon">🖼️</div><span class="card-tag">Computer Vision</span></div>
+          <div><h3 class="card-title">CNN</h3><p class="card-desc">Convolutional Neural Networks for image recognition — filters, pooling, feature maps, and architectures like VGG &amp; ResNet.</p></div>
+          <div class="card-footer"><span class="card-meta">Conv2D · Transfer Learning</span><span class="card-arrow">→</span></div>
+        </a>
+
+        <a href="#" class="card c-green">
+          <div class="card-top"><div class="card-icon">💬</div><span class="card-tag">Language AI</span></div>
+          <div><h3 class="card-title">NLP</h3><p class="card-desc">Process and understand human language — tokenisation, word embeddings, sentiment analysis, and BERT fine-tuning.</p></div>
+          <div class="card-footer"><span class="card-meta">NLTK · spaCy · HuggingFace</span><span class="card-arrow">→</span></div>
+        </a>
+
+        <a href="https://rag-study-app.onrender.com/" target="_blank" rel="noopener noreferrer" class="card c-maroon">
+          <div class="card-top"><div class="card-icon">📎</div><span class="card-tag">Gen AI</span></div>
+          <div><h3 class="card-title">RAG</h3><p class="card-desc">Retrieval-Augmented Generation — combine vector stores with LLMs to build intelligent, knowledge-grounded Q&amp;A applications.</p></div>
+          <div class="card-footer"><span class="card-meta">LangChain · FAISS · ChromaDB</span><span class="card-arrow">→</span></div>
+        </a>
+
+        <a href="#" class="card c-pink">
+          <div class="card-top"><div class="card-icon">✨</div><span class="card-tag">Gen AI</span></div>
+          <div><h3 class="card-title">Gen AI</h3><p class="card-desc">Explore generative models — prompt engineering, LLM APIs, diffusion models, agents, and building real-world GenAI applications.</p></div>
+          <div class="card-footer"><span class="card-meta">OpenAI · Claude · LangChain</span><span class="card-arrow">→</span></div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- COMING SOON -->
+    <div class="coming-soon">
+      <div class="cs-inner">
+        <div class="cs-text">
+          <h3>🚀 More Apps on the Way</h3>
+          <p>We're continuously expanding the hub. New study apps are deployed regularly.</p>
+        </div>
+        <div class="cs-chips">
+          <span class="cs-chip">Recommendation Systems</span>
+          <span class="cs-chip">Computer Vision</span>
+          <span class="cs-chip">Time Series</span>
+          <span class="cs-chip">MLOps</span>
+          <span class="cs-chip">+ More</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /page-apps -->
+
+
+  <!-- ═══════════════════════════════════════
+       PAGE 2 — STUDY MATERIALS
+  ═══════════════════════════════════════ -->
+  <div id="page-materials" class="page">
+
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+      <div class="page-hero-inner">
+        <h2>📂 Study Materials</h2>
+        <p>Curated reference guides, notes, and resources for every topic — all in one place. Click any card to open the material in Google Drive.</p>
+        <div class="page-hero-chips">
+          <span class="page-hero-chip">14 Resources</span>
+          <span class="page-hero-chip">Google Drive</span>
+          <span class="page-hero-chip">Always Updated</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MATERIALS CARDS -->
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <p class="section-label">📚 Reference Library</p>
+          <h2 class="section-title">All Study<br>Resources</h2>
+        </div>
+        <span class="section-count">14 resources available</span>
+      </div>
+      <div class="cards">
+
+        <a href="https://drive.google.com/file/d/193KVM-Ej795X9qB_sHrCHOqeg4DLyi_2/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-blue">
+          <div class="card-top"><div class="card-icon">🐍</div><span class="card-tag">Programming</span></div>
+          <div><h3 class="card-title">Python</h3><p class="card-desc">Core Python concepts, syntax, data structures, OOP, and scripting essentials for data science and ML workflows.</p></div>
+          <div class="card-footer"><span class="card-meta">📄 Drive File</span><span class="card-arrow">↗</span></div>
+        </a>
+
+        <a href="https://drive.google.com/file/d/1uuaOrTSY2dyud7tSmbtnrk-j_ok_7HI9/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-maroon">
+          <div class="card-top"><div class="card-icon">🗄️</div><span class="card-tag">Database</span></div>
+          <div><h3 class="card-title">SQL</h3><p class="card-desc">Querying, joins, aggregations, window functions, and database design fundamentals for data analysis.</p></div>
+          <div class="card-footer"><span class="card-meta">📄 Drive File</span><span class="card-arrow">↗</span></div>
+        </a>
+
+        <a href="https://drive.google.com/file/d/1CgXKHDrg-Sb0a1sa1c6WDzScXxqlPRPC/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-green">
+          <div class="card-top"><div class="card-icon">🐼</div><span class="card-tag">Data Wrangling</span></div>
+          <div><h3 class="card-title">Pandas</h3><p class="card-desc">DataFrames, indexing, merging, groupby operations, and data manipulation techniques for efficient analysis.</p></div>
+          <div class="card-footer"><span class="card-meta">📄 Drive File</span><span class="card-arrow">↗</span></div>
+        </a>
+
+        <a href="https://drive.google.com/file/d/1PsAMVn9k1G9qE1Co7mkGqnxmUJCSOhtP/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-green">
+          <div class="card-top"><div class="card-icon">🔢</div><span class="card-tag">Computation</span></div>
+          <div><h3 class="card-title">NumPy</h3><p class="card-desc">Arrays, matrix operations, broadcasting, linear algebra, and numerical computing for scientific workflows.</p></div>
+          <div class="card-footer"><span class="card-meta">📄 Drive File</span><span class="card-arrow">↗</span></div>
+        </a>
+
+        <a href="https://drive.google.com/drive/folders/1MwsZ3elkhDD7CQoDR0h-0nhOGX8-MXjJ?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-yellow">
+          <div class="card-top"><div class="card-icon">📐</div><span class="card-tag">Foundations</span></div>
+          <div><h3 class="card-title">Mathematics for Data Science</h3><p class="card-desc">Linear algebra, calculus, and matrix operations essential for understanding ML algorithms at a deeper level.</p></div>
+          <div class="card-footer"><span class="card-meta">📁 Drive Folder</span><span class="card-arrow">↗</span></div>
+        </a>
+
+        <a href="https://drive.google.com/file/d/1FJtsmE_9R-KWaw1eG1MQuBmku-yfGt-p/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-yellow">
+          <div class="card-top"><div class="card-icon">📊</div><span class="card-tag">Foundations</span></div>
+          <div><h3 class="card-title">Probability &amp; Stats</h3><p class="card-desc">Distributions, hypothesis testing, Bayes' theorem, and statistical inference for data-driven decision making.</p></div>
+          <div class="card-footer"><span class="card-meta">📄 Drive File</span><span class="card-arrow">↗</span></div>
+        </a>
+
+        <a href="https://drive.google.com/file/d/1clGDWntthzGBaQh6g3mLUndkc_7YeGNG/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-pink">
+          <div class="card-top"><div class="card-icon">📈</div><span class="card-tag">Visualization</span></div>
+          <div><h3 class="card-title">Data Visualization</h3><p class="card-desc">Charts, plots, dashboards, and storytelling with data using Matplotlib, Seaborn, and Plotly.</p></div>
+          <div class="card-footer"><span class="card-meta">📄 Drive File</span><span class="card-arrow">↗</span></div>
+        </a>
+
+        <a href="https://drive.google.com/drive/folders/1YWsPFKeroYu5RtCwsIZFTjQZ8okk1Z0J?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-blue">
+          <div class="card-top"><div class="card-icon">🎯</div><span class="card-tag">ML Core</span></div>
+          <div><h3 class="card-title">Machine Learning</h3><p class="card-desc">Supervised algorithms, model evaluation, pipelines, and best practices for building production-ready ML models.</p></div>
+          <div class="card-footer"><span class="card-meta">📁 Drive Folder</span><span class="card-arrow">↗</span></div>
+        </a>
+
+        <a href="https://docs.google.com/document/d/1Ch3OUvaYAVlLfg_fD12nFaiyjiNNNWk2IFxUTPM4RYc/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-pink">
+          <div class="card-top"><div class="card-icon">🔍</div><span class="card-tag">ML Core</span></div>
+          <div><h3 class="card-title">Unsupervised Learning</h3><p class="card-desc">Clustering, dimensionality reduction, and pattern discovery techniques for unlabeled datasets.</p></div>
+          <div class="card-footer"><span class="card-meta">📝 Google Doc</span><span class="card-arrow">↗</span></div>
+        </a>
+
+        <a href="https://drive.google.com/file/d/1HmN1ruhaqm7YNdJku1kTtc6xO5z8dXw2/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-maroon">
+          <div class="card-top"><div class="card-icon">🧠</div><span class="card-tag">Deep Learning</span></div>
+          <div><h3 class="card-title">Deep Learning</h3><p class="card-desc">Neural network architectures, training strategies, regularization, and deployment for real-world deep learning tasks.</p></div>
+          <div class="card-footer"><span class="card-meta">📄 Drive File</span><span class="card-arrow">↗</span></div>
+        </a>
+
+        <a href="https://drive.google.com/drive/folders/1G5geCyxriHRfgOMLOxkg3zLuj6re-PDZ?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-green">
+          <div class="card-top"><div class="card-icon">💬</div><span class="card-tag">Language AI</span></div>
+          <div><h3 class="card-title">NLP</h3><p class="card-desc">Text preprocessing, embeddings, transformers, and language model fine-tuning for natural language tasks.</p></div>
+          <div class="card-footer"><span class="card-meta">📁 Drive Folder</span><span class="card-arrow">↗</span></div>
+        </a>
+
+        <a href="https://drive.google.com/file/d/1Cp-Hc-dsBEVooWHwfVxGS2gjCde6wHpJ/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-blue">
+          <div class="card-top"><div class="card-icon">⚡</div><span class="card-tag">Deployment</span></div>
+          <div><h3 class="card-title">FastAPI</h3><p class="card-desc">Build high-performance REST APIs for ML models — routing, validation, async handling, and API documentation.</p></div>
+          <div class="card-footer"><span class="card-meta">📄 Drive File</span><span class="card-arrow">↗</span></div>
+        </a>
+
+        <a href="https://drive.google.com/file/d/1l8Fh5rnLuI501b03MIjZmGXFVW7JWvs_/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-maroon">
+          <div class="card-top"><div class="card-icon">🌶️</div><span class="card-tag">Deployment</span></div>
+          <div><h3 class="card-title">Flask</h3><p class="card-desc">Lightweight web framework for deploying ML models — routes, templates, REST endpoints, and app structuring.</p></div>
+          <div class="card-footer"><span class="card-meta">📄 Drive File</span><span class="card-arrow">↗</span></div>
+        </a>
+
+        <a href="https://drive.google.com/file/d/1P2u3k35V5PEMyMakN8yZ3vC0feaxfy1l/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-yellow">
+          <div class="card-top"><div class="card-icon">🔬</div><span class="card-tag">MLOps</span></div>
+          <div><h3 class="card-title">MLflow</h3><p class="card-desc">Experiment tracking, model registry, versioning, and deployment pipelines for scalable ML operations.</p></div>
+          <div class="card-footer"><span class="card-meta">📄 Drive File</span><span class="card-arrow">↗</span></div>
+        </a>
+
+      </div>
+    </section>
+
+  </div><!-- /page-materials -->
+
 
   <!-- ═══════════════ FOOTER ═══════════════ -->
   <footer>
-    <div class="footer-left">
-      Built with ❤️ by <strong>HCL GUVI</strong> · Learning &amp; Development Team
-    </div>
+    <div class="footer-left">Built with ❤️ by <strong>HCL GUVI</strong> · Learning &amp; Development Team</div>
     <div class="footer-chips">
       <span class="fchip fchip-green">Data Science</span>
       <span class="fchip fchip-blue">Machine Learning</span>
@@ -734,6 +577,26 @@
       <span class="fchip fchip-maroon">Gen AI</span>
     </div>
   </footer>
+
+  <script>
+    function switchPage(page) {
+      // hide all pages
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      // deactivate all tabs
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+      // show selected page
+      document.getElementById('page-' + page).classList.add('active');
+
+      // activate correct tab
+      const tabs = document.querySelectorAll('.tab-btn');
+      if (page === 'apps')      tabs[0].classList.add('active');
+      if (page === 'materials') tabs[1].classList.add('active');
+
+      // scroll to top of content
+      window.scrollTo({ top: 70, behavior: 'smooth' });
+    }
+  </script>
 
 </body>
 </html>
