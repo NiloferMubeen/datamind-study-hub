@@ -7,327 +7,179 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --green:    #1db86e; --green-d:  #159a57; --green-l:  #d4f5e5;
-      --blue:     #2563eb; --blue-d:   #1d4ed8; --blue-l:   #dbeafe;
-      --pink:     #e91e8c; --pink-d:   #c2166f; --pink-l:   #fce7f3;
-      --maroon:   #9b1c3a; --maroon-d: #7f1530; --maroon-l: #fde8ed;
-      --yellow:   #f59e0b; --yellow-d: #d97706; --yellow-l: #fef3c7;
-      --bg:       #ffffff; --surface:  #ffffff;
-      --text:     #0f172a; --muted:    #64748b; --border:   #e2e8f0;
-      --radius:   20px;    --shadow:   0 4px 28px rgba(15,23,42,.09);
+      --green:#1db86e; --green-d:#159a57; --green-l:#d4f5e5;
+      --blue:#2563eb; --blue-d:#1d4ed8; --blue-l:#dbeafe;
+      --pink:#e91e8c; --pink-d:#c2166f; --pink-l:#fce7f3;
+      --maroon:#9b1c3a; --maroon-d:#7f1530; --maroon-l:#fde8ed;
+      --yellow:#f59e0b; --yellow-d:#d97706; --yellow-l:#fef3c7;
+      --bg:#fff; --surface:#fff; --text:#0f172a; --muted:#64748b; --border:#e2e8f0;
+      --radius:20px; --shadow:0 4px 28px rgba(15,23,42,.09);
     }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    /* NAVBAR */
+    nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.98);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 6%;height:70px;display:flex;align-items:center;justify-content:space-between}
+    .nav-logo{display:flex;align-items:center;text-decoration:none}
+    .nav-logo img{height:42px;width:auto;object-fit:contain}
+    .nav-badge{background:linear-gradient(90deg,var(--green),var(--blue));color:#fff;font-size:12px;font-weight:600;padding:5px 14px;border-radius:999px;letter-spacing:.04em}
 
-    /* ── NAVBAR ── */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,.98);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 6%; height: 70px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav-logo { display: flex; align-items: center; text-decoration: none; }
-    .nav-logo img { height: 42px; width: auto; object-fit: contain; }
-    .nav-badge {
-      background: linear-gradient(90deg, var(--green), var(--blue));
-      color: #fff; font-size: 12px; font-weight: 600;
-      padding: 5px 14px; border-radius: 999px; letter-spacing: .04em;
-    }
+    /* TABS */
+    .tabs-bar{position:sticky;top:70px;z-index:99;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 6%;gap:6px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+    .tabs-bar::-webkit-scrollbar{display:none}
+    .tab-btn{display:inline-flex;align-items:center;gap:8px;padding:18px 22px 16px;font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;color:var(--muted);border:none;background:none;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s;letter-spacing:-.01em;flex-shrink:0}
+    .tab-btn:hover{color:var(--text)}
+    .tab-btn.active{color:var(--blue);border-bottom-color:var(--blue)}
+    .tab-count{font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;transition:background .2s,color .2s}
+    .tc-blue{background:var(--blue-l);color:var(--blue-d)} .tc-green{background:var(--green-l);color:var(--green-d)}
+    .tc-pink{background:var(--pink-l);color:var(--pink-d)} .tc-maroon{background:var(--maroon-l);color:var(--maroon-d)}
+    .tab-btn.active .tc-blue{background:var(--blue);color:#fff} .tab-btn.active .tc-green{background:var(--green);color:#fff}
+    .tab-btn.active .tc-pink{background:var(--pink);color:#fff} .tab-btn.active .tc-maroon{background:var(--maroon);color:#fff}
 
-    /* ── PAGE TABS ── */
-    .tabs-bar {
-      position: sticky; top: 70px; z-index: 99;
-      background: #fff;
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center;
-      padding: 0 6%; gap: 6px;
-    }
+    .page{display:none} .page.active{display:block}
 
-    .tab-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 18px 22px 16px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 14px; font-weight: 600;
-      color: var(--muted);
-      border: none; background: none; cursor: pointer;
-      border-bottom: 3px solid transparent;
-      margin-bottom: -1px;
-      transition: color .2s, border-color .2s;
-      letter-spacing: -.01em;
-    }
-    .tab-btn:hover { color: var(--text); }
-    .tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
-    .tab-btn .tab-count {
-      font-size: 10px; font-weight: 700;
-      padding: 2px 8px; border-radius: 999px;
-      background: var(--blue-l); color: var(--blue-d);
-      transition: background .2s, color .2s;
-    }
-    .tab-btn:nth-child(2) .tab-count { background: var(--green-l); color: var(--green-d); }
-    .tab-btn.active .tab-count { background: var(--blue); color: #fff; }
-    .tab-btn:nth-child(2).active .tab-count { background: var(--green); color: #fff; }
+    /* HERO */
+    .hero{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:48px;max-width:1300px;margin:0 auto;padding:80px 6% 60px;min-height:82vh}
+    .hero-left{display:flex;flex-direction:column;gap:26px}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;width:fit-content;background:var(--green-l);border:1px solid rgba(29,184,110,.3);color:var(--green-d);font-size:11.5px;font-weight:600;padding:6px 15px;border-radius:999px;letter-spacing:.07em;text-transform:uppercase}
+    .eyebrow-dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 1.8s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(1.6)}}
+    .hero-brand{font-family:'Poppins',sans-serif;font-size:clamp(1rem,2vw,1.3rem);font-weight:600;color:var(--blue);letter-spacing:.01em}
+    .hero-title{font-family:'Poppins',sans-serif;font-size:clamp(2.8rem,5vw,4.4rem);font-weight:800;line-height:1.08;letter-spacing:-.02em}
+    .gradient-text{background:linear-gradient(110deg,var(--blue) 0%,var(--green) 45%,var(--pink) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-desc{font-size:1.05rem;color:var(--muted);line-height:1.78;max-width:520px;font-weight:300}
+    .hero-desc b{color:var(--text);font-weight:600}
+    .hero-stats{display:flex;gap:30px;flex-wrap:wrap;padding:20px 24px;background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);width:fit-content}
+    .stat{display:flex;flex-direction:column;gap:3px}
+    .stat-num{font-family:'Poppins',sans-serif;font-size:1.45rem;font-weight:800}
+    .s-green{color:var(--green)} .s-blue{color:var(--blue)} .s-maroon{color:var(--maroon)} .s-pink{color:var(--pink)}
+    .stat-label{font-size:11px;color:var(--muted);font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+    .hero-cta{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+    .btn-primary{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--blue),var(--blue-d));color:#fff;font-weight:600;font-size:15px;padding:14px 28px;border-radius:999px;text-decoration:none;box-shadow:0 6px 24px rgba(37,99,235,.35);transition:transform .22s cubic-bezier(.34,1.56,.64,1),box-shadow .22s}
+    .btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(37,99,235,.45)}
+    .btn-ghost{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:14px;font-weight:500;text-decoration:none;transition:color .2s}
+    .btn-ghost:hover{color:var(--text)}
+    .hero-right{display:flex;align-items:center;justify-content:center}
+    .image-stage{position:relative;width:100%;max-width:500px;aspect-ratio:1;display:flex;align-items:center;justify-content:center}
+    @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
 
-    /* ── PAGES ── */
-    .page { display: none; }
-    .page.active { display: block; }
+    /* ABOUT / WHAT'S INSIDE */
+    .about{max-width:1300px;margin:0 auto;padding:10px 6% 20px}
+    .about-intro{max-width:760px;margin-bottom:32px}
+    .about-intro p{font-size:1rem;color:var(--muted);line-height:1.8;font-weight:300;margin-top:14px}
+    .about-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+    .about-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);cursor:pointer;text-align:left;font:inherit;color:inherit;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden;transition:transform .28s cubic-bezier(.34,1.56,.64,1),box-shadow .28s}
+    .about-card:hover{transform:translateY(-6px);box-shadow:0 24px 56px rgba(15,23,42,.13)}
+    .about-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+    .ab-blue::before{background:linear-gradient(90deg,var(--blue),#93c5fd)} .ab-green::before{background:linear-gradient(90deg,var(--green),#6ee7b7)}
+    .ab-pink::before{background:linear-gradient(90deg,var(--pink),#f9a8d4)} .ab-maroon::before{background:linear-gradient(90deg,var(--maroon),#fb7185)}
+    .about-card .ab-icon{font-size:28px}
+    .about-card h3{font-family:'Poppins',sans-serif;font-size:1.05rem;font-weight:700}
+    .about-card p{font-size:13.5px;color:var(--muted);line-height:1.65;font-weight:300}
+    .about-card .ab-link{margin-top:auto;font-size:12.5px;font-weight:600;font-family:'Poppins',sans-serif}
+    .ab-blue .ab-link{color:var(--blue)} .ab-green .ab-link{color:var(--green-d)} .ab-pink .ab-link{color:var(--pink)} .ab-maroon .ab-link{color:var(--maroon)}
+    .lang-note{margin-top:22px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+    .lang-pill{font-size:12px;font-weight:600;padding:5px 14px;border-radius:999px}
+    .lang-pill.eng{background:var(--blue-l);color:var(--blue-d)} .lang-pill.tam{background:var(--green-l);color:var(--green-d)}
 
-    /* ── HERO ── */
-    .hero {
-      position: relative; z-index: 1;
-      display: grid; grid-template-columns: 1fr 1fr;
-      align-items: center; gap: 48px;
-      max-width: 1300px; margin: 0 auto;
-      padding: 80px 6% 60px; min-height: 82vh;
-    }
-    .hero-left { display: flex; flex-direction: column; gap: 26px; }
+    /* SECTION */
+    .section{max-width:1300px;margin:0 auto;padding:50px 6% 80px}
+    .page-hero{background:linear-gradient(135deg,var(--blue) 0%,var(--green) 100%);padding:52px 6%;position:relative;overflow:hidden}
+    .page-hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")}
+    .page-hero-inner{max-width:1300px;margin:0 auto;position:relative;z-index:1}
+    .page-hero h2{font-family:'Poppins',sans-serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:800;color:#fff;letter-spacing:-.02em;margin-bottom:8px}
+    .page-hero p{font-size:15px;color:rgba(255,255,255,.8);font-weight:300;max-width:560px;line-height:1.7}
+    .page-hero-chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+    .page-hero-chip{background:rgba(255,255,255,.15);backdrop-filter:blur(8px);color:#fff;font-size:12px;font-weight:600;padding:6px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.25);letter-spacing:.04em}
+    .section-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:16px}
+    .section-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+    .section-title{font-family:'Poppins',sans-serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:800;letter-spacing:-.02em;line-height:1.08}
+    .section-count{font-size:13px;color:var(--muted);background:var(--surface);border:1px solid var(--border);padding:6px 16px;border-radius:999px;white-space:nowrap;box-shadow:var(--shadow)}
 
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 8px; width: fit-content;
-      background: var(--green-l); border: 1px solid rgba(29,184,110,.3);
-      color: var(--green-d); font-size: 11.5px; font-weight: 600;
-      padding: 6px 15px; border-radius: 999px;
-      letter-spacing: .07em; text-transform: uppercase;
-    }
-    .eyebrow-dot {
-      width: 7px; height: 7px; background: var(--green); border-radius: 50%;
-      animation: pulse 1.8s ease-in-out infinite;
-    }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.35;transform:scale(1.6)} }
+    /* CARDS */
+    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:24px}
+    .card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);padding:30px 26px 24px;text-decoration:none;color:inherit;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:18px;box-shadow:var(--shadow);transition:transform .28s cubic-bezier(.34,1.56,.64,1),box-shadow .28s ease;opacity:0;animation:fadeUp .5s ease forwards}
+    .card:hover{transform:translateY(-7px);box-shadow:0 24px 56px rgba(15,23,42,.13)}
+    .card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:var(--radius) var(--radius) 0 0}
+    .card::after{content:'';position:absolute;inset:0;border-radius:var(--radius);opacity:0;transition:opacity .3s;pointer-events:none}
+    .card:hover::after{opacity:1}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 
-    .hero-brand {
-      font-family: 'Poppins', sans-serif;
-      font-size: clamp(1rem, 2vw, 1.3rem); font-weight: 600;
-      color: var(--blue); letter-spacing: .01em;
-    }
-    .hero-title {
-      font-family: 'Poppins', sans-serif;
-      font-size: clamp(2.8rem, 5vw, 4.4rem);
-      font-weight: 800; line-height: 1.08; letter-spacing: -.02em;
-    }
-    .gradient-text {
-      background: linear-gradient(110deg, var(--blue) 0%, var(--green) 45%, var(--pink) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .hero-desc { font-size: 1.05rem; color: var(--muted); line-height: 1.78; max-width: 490px; font-weight: 300; }
+    .c-green::before{background:linear-gradient(90deg,var(--green),#6ee7b7)} .c-green::after{background:radial-gradient(circle at 20% 20%,rgba(29,184,110,.07),transparent 70%)}
+    .c-green .card-icon{background:var(--green-l);color:var(--green)} .c-green .card-tag{background:var(--green-l);color:var(--green-d)} .c-green .card-arrow{color:var(--green)}
+    .c-blue::before{background:linear-gradient(90deg,var(--blue),#93c5fd)} .c-blue::after{background:radial-gradient(circle at 20% 20%,rgba(37,99,235,.07),transparent 70%)}
+    .c-blue .card-icon{background:var(--blue-l);color:var(--blue)} .c-blue .card-tag{background:var(--blue-l);color:var(--blue-d)} .c-blue .card-arrow{color:var(--blue)}
+    .c-pink::before{background:linear-gradient(90deg,var(--pink),#f9a8d4)} .c-pink::after{background:radial-gradient(circle at 20% 20%,rgba(233,30,140,.07),transparent 70%)}
+    .c-pink .card-icon{background:var(--pink-l);color:var(--pink)} .c-pink .card-tag{background:var(--pink-l);color:var(--pink-d)} .c-pink .card-arrow{color:var(--pink)}
+    .c-maroon::before{background:linear-gradient(90deg,var(--maroon),#fb7185)} .c-maroon::after{background:radial-gradient(circle at 20% 20%,rgba(155,28,58,.07),transparent 70%)}
+    .c-maroon .card-icon{background:var(--maroon-l);color:var(--maroon)} .c-maroon .card-tag{background:var(--maroon-l);color:var(--maroon-d)} .c-maroon .card-arrow{color:var(--maroon)}
+    .c-yellow::before{background:linear-gradient(90deg,var(--yellow),#fcd34d)} .c-yellow::after{background:radial-gradient(circle at 20% 20%,rgba(245,158,11,.07),transparent 70%)}
+    .c-yellow .card-icon{background:var(--yellow-l);color:var(--yellow-d)} .c-yellow .card-tag{background:var(--yellow-l);color:var(--yellow-d)} .c-yellow .card-arrow{color:var(--yellow-d)}
 
-    .hero-stats {
-      display: flex; gap: 30px; flex-wrap: wrap;
-      padding: 20px 24px; background: var(--surface);
-      border: 1px solid var(--border); border-radius: 16px;
-      box-shadow: var(--shadow); width: fit-content;
-    }
-    .stat { display: flex; flex-direction: column; gap: 3px; }
-    .stat-num { font-family: 'Poppins', sans-serif; font-size: 1.45rem; font-weight: 800; }
-    .s-green { color: var(--green); } .s-blue { color: var(--blue); } .s-maroon { color: var(--maroon); }
-    .stat-label { font-size: 11px; color: var(--muted); font-weight: 500; letter-spacing: .04em; text-transform: uppercase; }
+    .card-top{display:flex;align-items:flex-start;justify-content:space-between}
+    .card-icon{width:54px;height:54px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;transition:transform .25s cubic-bezier(.34,1.56,.64,1)}
+    .card:hover .card-icon{transform:scale(1.12) rotate(-4deg)}
+    .card-tag{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 11px;border-radius:999px;margin-top:4px}
+    .card-title{font-family:'Poppins',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:-.01em;margin-bottom:8px}
+    .card-desc{font-size:13.5px;color:var(--muted);line-height:1.66;font-weight:300}
+    .card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid var(--border);margin-top:auto}
+    .card-meta{font-size:11px;color:var(--muted);font-weight:500}
+    .card-arrow{width:32px;height:32px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:14px;opacity:.65;transition:transform .22s,opacity .22s}
+    .card:hover .card-arrow{transform:translateX(3px);opacity:1}
 
-    .hero-cta { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: linear-gradient(135deg, var(--blue), var(--blue-d));
-      color: #fff; font-weight: 600; font-size: 15px;
-      padding: 14px 28px; border-radius: 999px; text-decoration: none;
-      box-shadow: 0 6px 24px rgba(37,99,235,.35);
-      transition: transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s;
-    }
-    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(37,99,235,.45); }
-    .btn-ghost {
-      display: inline-flex; align-items: center; gap: 6px;
-      color: var(--muted); font-size: 14px; font-weight: 500;
-      text-decoration: none; transition: color .2s;
-    }
-    .btn-ghost:hover { color: var(--text); }
+    /* SESSION LINKS (Revision + Projects) */
+    .sessions{display:flex;flex-direction:column;gap:12px;padding-top:14px;border-top:1px solid var(--border);margin-top:auto}
+    .session{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .session-info{display:flex;flex-direction:column}
+    .session-label{font-family:'Poppins',sans-serif;font-size:13px;font-weight:700}
+    .session-date{font-size:11px;color:var(--muted)}
+    .session-btns{display:flex;gap:6px}
+    .lbtn{font-size:11.5px;font-weight:600;padding:6px 13px;border-radius:999px;text-decoration:none;transition:background .2s,color .2s,transform .2s}
+    .lbtn:hover{transform:translateY(-2px)}
+    .lbtn.eng{background:var(--blue-l);color:var(--blue-d)} .lbtn.eng:hover{background:var(--blue);color:#fff}
+    .lbtn.tam{background:var(--green-l);color:var(--green-d)} .lbtn.tam:hover{background:var(--green);color:#fff}
+    .lbtn.pending{opacity:.35;pointer-events:none}
 
-    /* ── HERO RIGHT ── */
-    .hero-right { display: flex; align-items: center; justify-content: center; }
-    .image-stage { position: relative; width: 100%; max-width: 500px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; }
-    @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+    /* COMING SOON */
+    .coming-soon{max-width:1300px;margin:0 auto 60px;padding:0 6%}
+    .cs-inner{background:linear-gradient(135deg,var(--blue) 0%,var(--green) 60%,var(--pink) 100%);border-radius:22px;padding:40px 48px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;position:relative;overflow:hidden}
+    .cs-inner::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")}
+    .cs-text{position:relative;z-index:1}
+    .cs-text h3{font-family:'Poppins',sans-serif;font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:6px}
+    .cs-text p{font-size:14px;color:rgba(255,255,255,.75);font-weight:300}
+    .cs-chips{display:flex;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
+    .cs-chip{background:rgba(255,255,255,.15);backdrop-filter:blur(8px);color:#fff;font-size:12px;font-weight:500;padding:7px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.25)}
 
-    /* ── SECTION ── */
-    .section { max-width: 1300px; margin: 0 auto; padding: 50px 6% 80px; }
+    /* FOOTER */
+    footer{background:rgba(255,255,255,.95);border-top:1px solid var(--border);padding:28px 6%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+    .footer-left{font-size:13px;color:var(--muted)} .footer-left strong{color:var(--text)}
+    .footer-chips{display:flex;gap:8px;flex-wrap:wrap}
+    .fchip{font-size:11px;font-weight:600;padding:4px 13px;border-radius:999px}
+    .fchip-green{background:var(--green-l);color:var(--green-d)} .fchip-blue{background:var(--blue-l);color:var(--blue-d)}
+    .fchip-pink{background:var(--pink-l);color:var(--pink-d)} .fchip-maroon{background:var(--maroon-l);color:var(--maroon-d)}
 
-    /* ── PAGE 2 HERO MINI ── */
-    .page-hero {
-      background: linear-gradient(135deg, var(--blue) 0%, var(--green) 100%);
-      padding: 52px 6%;
-      position: relative; overflow: hidden;
-    }
-    .page-hero::before {
-      content:'';
-      position: absolute; inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
-    }
-    .page-hero-inner { max-width: 1300px; margin: 0 auto; position: relative; z-index: 1; }
-    .page-hero h2 { font-family: 'Poppins', sans-serif; font-size: clamp(1.8rem,3vw,2.6rem); font-weight: 800; color: #fff; letter-spacing: -.02em; margin-bottom: 8px; }
-    .page-hero p  { font-size: 15px; color: rgba(255,255,255,.8); font-weight: 300; max-width: 520px; line-height: 1.7; }
-    .page-hero-chips { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
-    .page-hero-chip {
-      background: rgba(255,255,255,.15); backdrop-filter: blur(8px);
-      color: #fff; font-size: 12px; font-weight: 600;
-      padding: 6px 16px; border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.25); letter-spacing: .04em;
-    }
-
-    /* ── SECTION HEADER ── */
-    .section-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 40px; flex-wrap: wrap; gap: 16px; }
-    .section-label { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
-    .section-title { font-family: 'Poppins', sans-serif; font-size: clamp(1.8rem,3vw,2.6rem); font-weight: 800; letter-spacing: -.02em; line-height: 1.08; }
-    .section-count { font-size: 13px; color: var(--muted); background: var(--surface); border: 1px solid var(--border); padding: 6px 16px; border-radius: 999px; white-space: nowrap; box-shadow: var(--shadow); }
-
-    /* ── CARDS ── */
-    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px,1fr)); gap: 24px; }
-
-    .card {
-      background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border);
-      padding: 30px 26px 24px; text-decoration: none; color: inherit;
-      position: relative; overflow: hidden;
-      display: flex; flex-direction: column; gap: 18px;
-      box-shadow: var(--shadow);
-      transition: transform .28s cubic-bezier(.34,1.56,.64,1), box-shadow .28s ease;
-      opacity: 0; animation: fadeUp .5s ease forwards;
-    }
-    .card:hover { transform: translateY(-7px); box-shadow: 0 24px 56px rgba(15,23,42,.13); }
-
-    .card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; border-radius: var(--radius) var(--radius) 0 0; }
-    .card::after  { content:''; position:absolute; inset:0; border-radius:var(--radius); opacity:0; transition:opacity .3s; }
-    .card:hover::after { opacity:1; }
-
-    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
-    .card:nth-child(1){animation-delay:.04s} .card:nth-child(2){animation-delay:.08s}
-    .card:nth-child(3){animation-delay:.12s} .card:nth-child(4){animation-delay:.16s}
-    .card:nth-child(5){animation-delay:.20s} .card:nth-child(6){animation-delay:.24s}
-    .card:nth-child(7){animation-delay:.28s} .card:nth-child(8){animation-delay:.32s}
-    .card:nth-child(9){animation-delay:.36s} .card:nth-child(10){animation-delay:.40s}
-    .card:nth-child(11){animation-delay:.44s} .card:nth-child(12){animation-delay:.48s}
-    .card:nth-child(13){animation-delay:.52s} .card:nth-child(14){animation-delay:.56s}
-
-    /* Color themes */
-    .c-green::before  { background:linear-gradient(90deg,var(--green),#6ee7b7); }
-    .c-green::after   { background:radial-gradient(circle at 20% 20%,rgba(29,184,110,.07),transparent 70%); }
-    .c-green  .card-icon  { background:var(--green-l);  color:var(--green); }
-    .c-green  .card-tag   { background:var(--green-l);  color:var(--green-d); }
-    .c-green  .card-arrow { color:var(--green); }
-
-    .c-blue::before   { background:linear-gradient(90deg,var(--blue),#93c5fd); }
-    .c-blue::after    { background:radial-gradient(circle at 20% 20%,rgba(37,99,235,.07),transparent 70%); }
-    .c-blue   .card-icon  { background:var(--blue-l);   color:var(--blue); }
-    .c-blue   .card-tag   { background:var(--blue-l);   color:var(--blue-d); }
-    .c-blue   .card-arrow { color:var(--blue); }
-
-    .c-pink::before   { background:linear-gradient(90deg,var(--pink),#f9a8d4); }
-    .c-pink::after    { background:radial-gradient(circle at 20% 20%,rgba(233,30,140,.07),transparent 70%); }
-    .c-pink   .card-icon  { background:var(--pink-l);   color:var(--pink); }
-    .c-pink   .card-tag   { background:var(--pink-l);   color:var(--pink-d); }
-    .c-pink   .card-arrow { color:var(--pink); }
-
-    .c-maroon::before { background:linear-gradient(90deg,var(--maroon),#fb7185); }
-    .c-maroon::after  { background:radial-gradient(circle at 20% 20%,rgba(155,28,58,.07),transparent 70%); }
-    .c-maroon .card-icon  { background:var(--maroon-l); color:var(--maroon); }
-    .c-maroon .card-tag   { background:var(--maroon-l); color:var(--maroon-d); }
-    .c-maroon .card-arrow { color:var(--maroon); }
-
-    .c-yellow::before { background:linear-gradient(90deg,var(--yellow),#fcd34d); }
-    .c-yellow::after  { background:radial-gradient(circle at 20% 20%,rgba(245,158,11,.07),transparent 70%); }
-    .c-yellow .card-icon  { background:var(--yellow-l); color:var(--yellow-d); }
-    .c-yellow .card-tag   { background:var(--yellow-l); color:var(--yellow-d); }
-    .c-yellow .card-arrow { color:var(--yellow-d); }
-
-    .card-top { display:flex; align-items:flex-start; justify-content:space-between; }
-    .card-icon {
-      width:54px; height:54px; border-radius:15px;
-      display:flex; align-items:center; justify-content:center;
-      font-size:26px; flex-shrink:0;
-      transition: transform .25s cubic-bezier(.34,1.56,.64,1);
-    }
-    .card:hover .card-icon { transform: scale(1.12) rotate(-4deg); }
-    .card-tag { font-size:10px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; padding:4px 11px; border-radius:999px; margin-top:4px; }
-    .card-title { font-family:'Poppins',sans-serif; font-size:1.1rem; font-weight:700; letter-spacing:-.01em; margin-bottom:8px; }
-    .card-desc  { font-size:13.5px; color:var(--muted); line-height:1.66; font-weight:300; }
-    .card-footer { display:flex; align-items:center; justify-content:space-between; padding-top:14px; border-top:1px solid var(--border); }
-    .card-meta  { font-size:11px; color:var(--muted); font-weight:500; }
-    .card-arrow {
-      width:32px; height:32px; border-radius:50%; border:1.5px solid currentColor;
-      display:flex; align-items:center; justify-content:center;
-      font-size:14px; opacity:.65; transition:transform .22s, opacity .22s;
-    }
-    .card:hover .card-arrow { transform:translateX(3px); opacity:1; }
-
-    /* ── COMING SOON BANNER ── */
-    .coming-soon { max-width:1300px; margin:0 auto 60px; padding:0 6%; }
-    .cs-inner {
-      background: linear-gradient(135deg, var(--blue) 0%, var(--green) 60%, var(--pink) 100%);
-      border-radius:22px; padding:40px 48px;
-      display:flex; align-items:center; justify-content:space-between;
-      gap:24px; flex-wrap:wrap; position:relative; overflow:hidden;
-    }
-    .cs-inner::before {
-      content:''; position:absolute; inset:0;
-      background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
-    }
-    .cs-text { position:relative; z-index:1; }
-    .cs-text h3 { font-family:'Poppins',sans-serif; font-size:1.5rem; font-weight:800; color:#fff; margin-bottom:6px; }
-    .cs-text p  { font-size:14px; color:rgba(255,255,255,.75); font-weight:300; }
-    .cs-chips   { display:flex; gap:10px; flex-wrap:wrap; position:relative; z-index:1; }
-    .cs-chip    { background:rgba(255,255,255,.15); backdrop-filter:blur(8px); color:#fff; font-size:12px; font-weight:500; padding:7px 16px; border-radius:999px; border:1px solid rgba(255,255,255,.25); }
-
-    /* ── FOOTER ── */
-    footer {
-      background: rgba(255,255,255,.95); border-top:1px solid var(--border);
-      padding:28px 6%; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px;
-    }
-    .footer-left { font-size:13px; color:var(--muted); }
-    .footer-left strong { color:var(--text); }
-    .footer-chips { display:flex; gap:8px; flex-wrap:wrap; }
-    .fchip { font-size:11px; font-weight:600; padding:4px 13px; border-radius:999px; }
-    .fchip-green  { background:var(--green-l);  color:var(--green-d); }
-    .fchip-blue   { background:var(--blue-l);   color:var(--blue-d); }
-    .fchip-pink   { background:var(--pink-l);   color:var(--pink-d); }
-    .fchip-maroon { background:var(--maroon-l); color:var(--maroon-d); }
-
-    /* ── RESPONSIVE ── */
-    @media(max-width:900px){
-      .hero{grid-template-columns:1fr;min-height:unset;padding:60px 6% 40px;}
-      .hero-right{display:none;}
-    }
-    @media(max-width:600px){
-      nav{padding:0 4%;} .hero{padding:50px 4% 30px;}
-      .section,.coming-soon{padding-left:4%;padding-right:4%;}
-      .cs-inner{padding:28px 24px;} footer{padding:24px 4%;}
-      .tabs-bar{padding:0 4%;}
-      .tab-btn{padding:16px 14px 14px;font-size:13px;}
-    }
+    @media(max-width:900px){.hero{grid-template-columns:1fr;min-height:unset;padding:60px 6% 40px}.hero-right{display:none}}
+    @media(max-width:600px){nav{padding:0 4%}.hero{padding:50px 4% 30px}.about,.section,.coming-soon{padding-left:4%;padding-right:4%}.cs-inner{padding:28px 24px}footer{padding:24px 4%}.tabs-bar{padding:0 4%}.tab-btn{padding:16px 14px 14px;font-size:13px}}
   </style>
 </head>
 <body>
 
-  <!-- ═══════════════ NAVBAR ═══════════════ -->
   <nav>
-    <a href="#" class="nav-logo">
-      <img src="guvi.png" alt="HCL GUVI Logo"/>
-    </a>
+    <a href="#" class="nav-logo"><img src="guvi.png" alt="HCL GUVI Logo"/></a>
     <span class="nav-badge">🎓 AI / ML Study Hub</span>
   </nav>
 
-  <!-- ═══════════════ TAB BAR ═══════════════ -->
   <div class="tabs-bar">
-    <button class="tab-btn active" onclick="switchPage('apps')">
-      🚀 Study Apps <span class="tab-count">9</span>
-    </button>
-    <button class="tab-btn" onclick="switchPage('materials')">
-      📂 Study Materials <span class="tab-count">14</span>
-    </button>
+    <button class="tab-btn active" data-page="apps" onclick="switchPage('apps')">🚀 Study Apps <span class="tab-count tc-blue" id="count-apps"></span></button>
+    <button class="tab-btn" data-page="materials" onclick="switchPage('materials')">📂 Study Materials <span class="tab-count tc-green" id="count-materials"></span></button>
+    <button class="tab-btn" data-page="revision" onclick="switchPage('revision')">🔁 Revision Sessions <span class="tab-count tc-pink" id="count-revision"></span></button>
+    <button class="tab-btn" data-page="projects" onclick="switchPage('projects')">🛠️ Project Series <span class="tab-count tc-maroon" id="count-projects"></span></button>
   </div>
 
-  <!-- ═══════════════════════════════════════
-       PAGE 1 — STUDY APPS
-  ═══════════════════════════════════════ -->
+  <!-- ═════════ PAGE 1 — STUDY APPS (HOME) ═════════ -->
   <div id="page-apps" class="page active">
 
-    <!-- HERO -->
     <section class="hero">
       <div class="hero-left">
         <div class="eyebrow"><div class="eyebrow-dot"></div>Live Learning Platform</div>
@@ -336,99 +188,76 @@
           DataMind<br>
           <span class="gradient-text">Study Hub</span>
         </h1>
-        <p class="hero-desc">Your curated gateway to AI &amp; Machine Learning mastery. Explore hands-on, interactive study apps covering the full spectrum — from data foundations to cutting-edge generative intelligence.</p>
+        <p class="hero-desc">Your one-stop learning space for <b>Data Science, Machine Learning &amp; Generative AI</b>. Practise with interactive study apps, revise from curated notes, and catch up on recorded revision and project sessions — available in <b>English and Tamil</b>.</p>
         <div class="hero-stats">
-          <div class="stat"><span class="stat-num s-green">9+</span><span class="stat-label">Modules</span></div>
-          <div class="stat"><span class="stat-num s-blue">ML · DL · AI</span><span class="stat-label">Coverage</span></div>
-          <div class="stat"><span class="stat-num s-maroon">Live</span><span class="stat-label">Deployed Apps</span></div>
+          <div class="stat"><span class="stat-num s-blue" id="stat-apps"></span><span class="stat-label">Study Apps</span></div>
+          <div class="stat"><span class="stat-num s-green" id="stat-materials"></span><span class="stat-label">Materials</span></div>
+          <div class="stat"><span class="stat-num s-pink" id="stat-revision"></span><span class="stat-label">Revision Topics</span></div>
+          <div class="stat"><span class="stat-num s-maroon" id="stat-projects"></span><span class="stat-label">Projects</span></div>
         </div>
         <div class="hero-cta">
-          <a href="#apps-cards" class="btn-primary">Explore Modules <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-          <a href="#" class="btn-ghost" onclick="switchPage('materials');return false;">
+          <a href="#apps-cards" class="btn-primary">Explore Apps <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+          <a href="#about" class="btn-ghost">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            View Study Materials
+            What's inside the hub
           </a>
         </div>
       </div>
       <div class="hero-right">
         <div class="image-stage">
-          <img src="lap.png" alt="DataMind Hub"
-               style="width:90%;position:relative;z-index:2;
-                      animation:floatY 5s ease-in-out infinite;
-                      filter:drop-shadow(0 24px 48px rgba(37,99,235,.18));"/>
+          <img src="lap.png" alt="DataMind Hub" style="width:90%;position:relative;z-index:2;animation:floatY 5s ease-in-out infinite;filter:drop-shadow(0 24px 48px rgba(37,99,235,.18));"/>
         </div>
       </div>
     </section>
 
-    <!-- APPS CARDS -->
+    <!-- WHAT'S INSIDE -->
+    <section class="about" id="about">
+      <div class="about-intro">
+        <p class="section-label">👋 Welcome</p>
+        <h2 class="section-title">What's inside<br>the hub?</h2>
+        <p>DataMind Hub brings everything you need for your DS / AIML journey into one place. Use the tabs at the top or pick a section below — each one is built for a different way of learning.</p>
+      </div>
+      <div class="about-grid">
+        <button class="about-card ab-blue" onclick="switchPage('apps');document.getElementById('apps-cards').scrollIntoView({behavior:'smooth'})">
+          <span class="ab-icon">🚀</span><h3>Study Apps</h3>
+          <p>Hands-on, interactive apps where you learn by doing — data cleaning, feature engineering, statistics, CNN, RAG, SHAP and more.</p>
+          <span class="ab-link">Open apps →</span>
+        </button>
+        <button class="about-card ab-green" onclick="switchPage('materials')">
+          <span class="ab-icon">📂</span><h3>Study Materials</h3>
+          <p>Reference notes and guides for Python, SQL, Pandas, NumPy, ML, deployment and MLOps — stored in Google Drive.</p>
+          <span class="ab-link">Browse materials →</span>
+        </button>
+        <button class="about-card ab-pink" onclick="switchPage('revision')">
+          <span class="ab-icon">🔁</span><h3>Revision Sessions</h3>
+          <p>Topic-wise revision sessions from SQL to AWS &amp; Docker. Missed a class? Watch or read it again in your language.</p>
+          <span class="ab-link">Start revising →</span>
+        </button>
+        <button class="about-card ab-maroon" onclick="switchPage('projects')">
+          <span class="ab-icon">🛠️</span><h3>Project Series</h3>
+          <p>Final-project sessions on Deep Learning &amp; CV, NLP, RAG, ML and Agentic AI — with separate Day 1 and Day 2 links.</p>
+          <span class="ab-link">View projects →</span>
+        </button>
+      </div>
+      <div class="lang-note">
+        <span>Sessions are available in:</span>
+        <span class="lang-pill eng">English</span>
+        <span class="lang-pill tam">தமிழ்</span>
+      </div>
+    </section>
+
+    <!-- APPS -->
     <section class="section" id="apps-cards">
       <div class="section-head">
         <div>
           <p class="section-label">🚀 Interactive Apps</p>
           <h2 class="section-title">Choose Your<br>Learning Path</h2>
         </div>
-        <span class="section-count">9 apps available</span>
+        <span class="section-count" id="sc-apps"></span>
       </div>
-      <div class="cards">
-
-        <a href="https://data-cleaning-app-y7ca.onrender.com" class="card c-green">
-          <div class="card-top"><div class="card-icon">🧹</div><span class="card-tag">Foundation</span></div>
-          <div><h3 class="card-title">Data Cleaning</h3><p class="card-desc">Master raw-data preparation — handle missing values, outliers, duplicates, and inconsistencies to produce analysis-ready datasets.</p></div>
-          <div class="card-footer"><span class="card-meta">Pandas · NumPy · EDA</span><span class="card-arrow">→</span></div>
-        </a>
-
-        <a href="https://feature-engineering-app-oc7j.onrender.com/" class="card c-yellow">
-          <div class="card-top"><div class="card-icon">⚙️</div><span class="card-tag">Foundation</span></div>
-          <div><h3 class="card-title">Feature Engineering</h3><p class="card-desc">Transform raw variables into powerful features — encoding, scaling, binning, feature selection, and creation for better model performance.</p></div>
-          <div class="card-footer"><span class="card-meta">Scikit-learn · Pandas · Stats</span><span class="card-arrow">→</span></div>
-        </a>
-
-        <a href="#" class="card c-blue">
-          <div class="card-top"><div class="card-icon">🎯</div><span class="card-tag">ML Core</span></div>
-          <div><h3 class="card-title">ML Supervised</h3><p class="card-desc">Dive into classification &amp; regression — linear models, decision trees, SVMs, ensembles, and model evaluation pipelines.</p></div>
-          <div class="card-footer"><span class="card-meta">Scikit-learn · XGBoost · RF</span><span class="card-arrow">→</span></div>
-        </a>
-
-        <a href="#" class="card c-pink">
-          <div class="card-top"><div class="card-icon">🔍</div><span class="card-tag">ML Core</span></div>
-          <div><h3 class="card-title">ML Unsupervised</h3><p class="card-desc">Discover hidden patterns with clustering, dimensionality reduction, and anomaly detection — letting data reveal its own structure.</p></div>
-          <div class="card-footer"><span class="card-meta">K-Means · PCA · DBSCAN</span><span class="card-arrow">→</span></div>
-        </a>
-
-        <a href="#" class="card c-maroon">
-          <div class="card-top"><div class="card-icon">🧠</div><span class="card-tag">Deep Learning</span></div>
-          <div><h3 class="card-title">Deep Learning</h3><p class="card-desc">Build and train neural networks from scratch — backpropagation, activation functions, optimizers, and regularisation strategies.</p></div>
-          <div class="card-footer"><span class="card-meta">TensorFlow · Keras · PyTorch</span><span class="card-arrow">→</span></div>
-        </a>
-
-        <a href="https://cnn-study-app.onrender.com" class="card c-blue">
-          <div class="card-top"><div class="card-icon">🖼️</div><span class="card-tag">Computer Vision</span></div>
-          <div><h3 class="card-title">CNN</h3><p class="card-desc">Convolutional Neural Networks for image recognition — filters, pooling, feature maps, and architectures like VGG &amp; ResNet.</p></div>
-          <div class="card-footer"><span class="card-meta">Conv2D · Transfer Learning</span><span class="card-arrow">→</span></div>
-        </a>
-
-        <a href="#" class="card c-green">
-          <div class="card-top"><div class="card-icon">💬</div><span class="card-tag">Language AI</span></div>
-          <div><h3 class="card-title">NLP</h3><p class="card-desc">Process and understand human language — tokenisation, word embeddings, sentiment analysis, and BERT fine-tuning.</p></div>
-          <div class="card-footer"><span class="card-meta">NLTK · spaCy · HuggingFace</span><span class="card-arrow">→</span></div>
-        </a>
-
-        <a href="https://rag-study-app-qflt.onrender.com" target="_blank" rel="noopener noreferrer" class="card c-maroon">
-          <div class="card-top"><div class="card-icon">📎</div><span class="card-tag">Gen AI</span></div>
-          <div><h3 class="card-title">RAG</h3><p class="card-desc">Retrieval-Augmented Generation — combine vector stores with LLMs to build intelligent, knowledge-grounded Q&amp;A applications.</p></div>
-          <div class="card-footer"><span class="card-meta">LangChain · FAISS · ChromaDB</span><span class="card-arrow">→</span></div>
-        </a>
-
-        <a href="#" class="card c-pink">
-          <div class="card-top"><div class="card-icon">✨</div><span class="card-tag">Gen AI</span></div>
-          <div><h3 class="card-title">Gen AI</h3><p class="card-desc">Explore generative models — prompt engineering, LLM APIs, diffusion models, agents, and building real-world GenAI applications.</p></div>
-          <div class="card-footer"><span class="card-meta">OpenAI · Claude · LangChain</span><span class="card-arrow">→</span></div>
-        </a>
-
-      </div>
+      <div class="cards" id="apps-grid"></div>
     </section>
 
-    <!-- COMING SOON -->
     <div class="coming-soon">
       <div class="cs-inner">
         <div class="cs-text">
@@ -436,138 +265,65 @@
           <p>We're continuously expanding the hub. New study apps are deployed regularly.</p>
         </div>
         <div class="cs-chips">
-          <span class="cs-chip">Recommendation Systems</span>
-          <span class="cs-chip">Computer Vision</span>
+          <span class="cs-chip">ML Supervised</span>
+          <span class="cs-chip">ML Unsupervised</span>
+          <span class="cs-chip">Deep Learning</span>
           <span class="cs-chip">Time Series</span>
           <span class="cs-chip">MLOps</span>
           <span class="cs-chip">+ More</span>
         </div>
       </div>
     </div>
+  </div>
 
-  </div><!-- /page-apps -->
-
-
-  <!-- ═══════════════════════════════════════
-       PAGE 2 — STUDY MATERIALS
-  ═══════════════════════════════════════ -->
+  <!-- ═════════ PAGE 2 — STUDY MATERIALS ═════════ -->
   <div id="page-materials" class="page">
-
-    <!-- PAGE HERO -->
-    <div class="page-hero">
-      <div class="page-hero-inner">
-        <h2>📂 Study Materials</h2>
-        <p>Curated reference guides, notes, and resources for every topic — all in one place. Click any card to open the material in Google Drive.</p>
-        <div class="page-hero-chips">
-          <span class="page-hero-chip">14 Resources</span>
-          <span class="page-hero-chip">Google Drive</span>
-          <span class="page-hero-chip">Always Updated</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- MATERIALS CARDS -->
+    <div class="page-hero"><div class="page-hero-inner">
+      <h2>📂 Study Materials</h2>
+      <p>Curated reference guides, notes, and resources for every topic — all in one place. Click any card to open the material in Google Drive.</p>
+      <div class="page-hero-chips"><span class="page-hero-chip" id="chip-materials"></span><span class="page-hero-chip">Google Drive</span><span class="page-hero-chip">Always Updated</span></div>
+    </div></div>
     <section class="section">
       <div class="section-head">
-        <div>
-          <p class="section-label">📚 Reference Library</p>
-          <h2 class="section-title">All Study<br>Resources</h2>
-        </div>
-        <span class="section-count">14 resources available</span>
+        <div><p class="section-label">📚 Reference Library</p><h2 class="section-title">All Study<br>Resources</h2></div>
+        <span class="section-count" id="sc-materials"></span>
       </div>
-      <div class="cards">
-
-        <a href="https://drive.google.com/file/d/193KVM-Ej795X9qB_sHrCHOqeg4DLyi_2/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-blue">
-          <div class="card-top"><div class="card-icon">🐍</div><span class="card-tag">Programming</span></div>
-          <div><h3 class="card-title">Python</h3><p class="card-desc">Core Python concepts, syntax, data structures, OOP, and scripting essentials for data science and ML workflows.</p></div>
-          <div class="card-footer"><span class="card-meta">📄 Drive File</span><span class="card-arrow">↗</span></div>
-        </a>
-
-        <a href="https://drive.google.com/file/d/1uuaOrTSY2dyud7tSmbtnrk-j_ok_7HI9/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-maroon">
-          <div class="card-top"><div class="card-icon">🗄️</div><span class="card-tag">Database</span></div>
-          <div><h3 class="card-title">SQL</h3><p class="card-desc">Querying, joins, aggregations, window functions, and database design fundamentals for data analysis.</p></div>
-          <div class="card-footer"><span class="card-meta">📄 Drive File</span><span class="card-arrow">↗</span></div>
-        </a>
-
-        <a href="https://drive.google.com/file/d/1CgXKHDrg-Sb0a1sa1c6WDzScXxqlPRPC/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-green">
-          <div class="card-top"><div class="card-icon">🐼</div><span class="card-tag">Data Wrangling</span></div>
-          <div><h3 class="card-title">Pandas</h3><p class="card-desc">DataFrames, indexing, merging, groupby operations, and data manipulation techniques for efficient analysis.</p></div>
-          <div class="card-footer"><span class="card-meta">📄 Drive File</span><span class="card-arrow">↗</span></div>
-        </a>
-
-        <a href="https://drive.google.com/file/d/1PsAMVn9k1G9qE1Co7mkGqnxmUJCSOhtP/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-green">
-          <div class="card-top"><div class="card-icon">🔢</div><span class="card-tag">Computation</span></div>
-          <div><h3 class="card-title">NumPy</h3><p class="card-desc">Arrays, matrix operations, broadcasting, linear algebra, and numerical computing for scientific workflows.</p></div>
-          <div class="card-footer"><span class="card-meta">📄 Drive File</span><span class="card-arrow">↗</span></div>
-        </a>
-
-        <a href="https://drive.google.com/drive/folders/1MwsZ3elkhDD7CQoDR0h-0nhOGX8-MXjJ?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-yellow">
-          <div class="card-top"><div class="card-icon">📐</div><span class="card-tag">Foundations</span></div>
-          <div><h3 class="card-title">Mathematics for Data Science</h3><p class="card-desc">Linear algebra, calculus, and matrix operations essential for understanding ML algorithms at a deeper level.</p></div>
-          <div class="card-footer"><span class="card-meta">📁 Drive Folder</span><span class="card-arrow">↗</span></div>
-        </a>
-
-        <a href="https://drive.google.com/file/d/1FJtsmE_9R-KWaw1eG1MQuBmku-yfGt-p/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-yellow">
-          <div class="card-top"><div class="card-icon">📊</div><span class="card-tag">Foundations</span></div>
-          <div><h3 class="card-title">Probability &amp; Stats</h3><p class="card-desc">Distributions, hypothesis testing, Bayes' theorem, and statistical inference for data-driven decision making.</p></div>
-          <div class="card-footer"><span class="card-meta">📄 Drive File</span><span class="card-arrow">↗</span></div>
-        </a>
-
-        <a href="https://drive.google.com/file/d/1clGDWntthzGBaQh6g3mLUndkc_7YeGNG/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-pink">
-          <div class="card-top"><div class="card-icon">📈</div><span class="card-tag">Visualization</span></div>
-          <div><h3 class="card-title">Data Visualization</h3><p class="card-desc">Charts, plots, dashboards, and storytelling with data using Matplotlib, Seaborn, and Plotly.</p></div>
-          <div class="card-footer"><span class="card-meta">📄 Drive File</span><span class="card-arrow">↗</span></div>
-        </a>
-
-        <a href="https://drive.google.com/drive/folders/1YWsPFKeroYu5RtCwsIZFTjQZ8okk1Z0J?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-blue">
-          <div class="card-top"><div class="card-icon">🎯</div><span class="card-tag">ML Core</span></div>
-          <div><h3 class="card-title">Machine Learning</h3><p class="card-desc">Supervised algorithms, model evaluation, pipelines, and best practices for building production-ready ML models.</p></div>
-          <div class="card-footer"><span class="card-meta">📁 Drive Folder</span><span class="card-arrow">↗</span></div>
-        </a>
-
-        <a href="https://docs.google.com/document/d/1Ch3OUvaYAVlLfg_fD12nFaiyjiNNNWk2IFxUTPM4RYc/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-pink">
-          <div class="card-top"><div class="card-icon">🔍</div><span class="card-tag">ML Core</span></div>
-          <div><h3 class="card-title">Unsupervised Learning</h3><p class="card-desc">Clustering, dimensionality reduction, and pattern discovery techniques for unlabeled datasets.</p></div>
-          <div class="card-footer"><span class="card-meta">📝 Google Doc</span><span class="card-arrow">↗</span></div>
-        </a>
-
-        <a href="https://drive.google.com/file/d/1HmN1ruhaqm7YNdJku1kTtc6xO5z8dXw2/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-maroon">
-          <div class="card-top"><div class="card-icon">🧠</div><span class="card-tag">Deep Learning</span></div>
-          <div><h3 class="card-title">Deep Learning</h3><p class="card-desc">Neural network architectures, training strategies, regularization, and deployment for real-world deep learning tasks.</p></div>
-          <div class="card-footer"><span class="card-meta">📄 Drive File</span><span class="card-arrow">↗</span></div>
-        </a>
-
-        <a href="https://drive.google.com/drive/folders/1G5geCyxriHRfgOMLOxkg3zLuj6re-PDZ?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-green">
-          <div class="card-top"><div class="card-icon">💬</div><span class="card-tag">Language AI</span></div>
-          <div><h3 class="card-title">NLP</h3><p class="card-desc">Text preprocessing, embeddings, transformers, and language model fine-tuning for natural language tasks.</p></div>
-          <div class="card-footer"><span class="card-meta">📁 Drive Folder</span><span class="card-arrow">↗</span></div>
-        </a>
-
-        <a href="https://drive.google.com/file/d/1Cp-Hc-dsBEVooWHwfVxGS2gjCde6wHpJ/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-blue">
-          <div class="card-top"><div class="card-icon">⚡</div><span class="card-tag">Deployment</span></div>
-          <div><h3 class="card-title">FastAPI</h3><p class="card-desc">Build high-performance REST APIs for ML models — routing, validation, async handling, and API documentation.</p></div>
-          <div class="card-footer"><span class="card-meta">📄 Drive File</span><span class="card-arrow">↗</span></div>
-        </a>
-
-        <a href="https://drive.google.com/file/d/1l8Fh5rnLuI501b03MIjZmGXFVW7JWvs_/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-maroon">
-          <div class="card-top"><div class="card-icon">🌶️</div><span class="card-tag">Deployment</span></div>
-          <div><h3 class="card-title">Flask</h3><p class="card-desc">Lightweight web framework for deploying ML models — routes, templates, REST endpoints, and app structuring.</p></div>
-          <div class="card-footer"><span class="card-meta">📄 Drive File</span><span class="card-arrow">↗</span></div>
-        </a>
-
-        <a href="https://drive.google.com/file/d/1P2u3k35V5PEMyMakN8yZ3vC0feaxfy1l/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="card c-yellow">
-          <div class="card-top"><div class="card-icon">🔬</div><span class="card-tag">MLOps</span></div>
-          <div><h3 class="card-title">MLflow</h3><p class="card-desc">Experiment tracking, model registry, versioning, and deployment pipelines for scalable ML operations.</p></div>
-          <div class="card-footer"><span class="card-meta">📄 Drive File</span><span class="card-arrow">↗</span></div>
-        </a>
-
-      </div>
+      <div class="cards" id="materials-grid"></div>
     </section>
+  </div>
 
-  </div><!-- /page-materials -->
+  <!-- ═════════ PAGE 3 — REVISION SESSIONS ═════════ -->
+  <div id="page-revision" class="page">
+    <div class="page-hero"><div class="page-hero-inner">
+      <h2>🔁 Revision Sessions</h2>
+      <p>Topic-wise revision recordings and docs for DS / AIML, available separately in English and Tamil.</p>
+      <div class="page-hero-chips"><span class="page-hero-chip" id="chip-revision"></span><span class="page-hero-chip">English</span><span class="page-hero-chip">தமிழ்</span></div>
+    </div></div>
+    <section class="section">
+      <div class="section-head">
+        <div><p class="section-label">🔁 DS / AIML</p><h2 class="section-title">Revision<br>Sessions</h2></div>
+        <span class="section-count" id="sc-revision"></span>
+      </div>
+      <div class="cards" id="revision-grid"></div>
+    </section>
+  </div>
 
+  <!-- ═════════ PAGE 4 — PROJECT SERIES ═════════ -->
+  <div id="page-projects" class="page">
+    <div class="page-hero"><div class="page-hero-inner">
+      <h2>🛠️ Project Series</h2>
+      <p>Final project sessions with Day 1 and Day 2 links, in both English and Tamil.</p>
+      <div class="page-hero-chips"><span class="page-hero-chip" id="chip-projects"></span><span class="page-hero-chip">Day-wise</span><span class="page-hero-chip">English + தமிழ்</span></div>
+    </div></div>
+    <section class="section">
+      <div class="section-head">
+        <div><p class="section-label">🛠️ Hands-on</p><h2 class="section-title">Project<br>Series</h2></div>
+        <span class="section-count" id="sc-projects"></span>
+      </div>
+      <div class="cards" id="projects-grid"></div>
+    </section>
+  </div>
 
-  <!-- ═══════════════ FOOTER ═══════════════ -->
   <footer>
     <div class="footer-left">Built with ❤️ by <strong>HCL GUVI</strong> · Learning &amp; Development Team</div>
     <div class="footer-chips">
@@ -579,24 +335,125 @@
   </footer>
 
   <script>
+    /* ════════════════ DATA — edit links here ════════════════ */
+
+    // Study Apps: [icon, color, tag, title, description, meta, link]  (use '#' if not deployed yet)
+    const apps = [
+      ['🧹','green','Foundation','Data Cleaning','Master raw-data preparation — handle missing values, outliers, duplicates, and inconsistencies to produce analysis-ready datasets.','Pandas · NumPy · EDA','https://data-cleaning-app-y7ca.onrender.com'],
+      ['⚙️','yellow','Foundation','Feature Engineering','Transform raw variables into powerful features — encoding, scaling, binning, feature selection, and creation for better model performance.','Scikit-learn · Pandas · Stats','https://feature-engineering-app-oc7j.onrender.com/'],
+      ['📊','yellow','Foundation','Statistics','Build a solid statistical base — distributions, hypothesis testing, confidence intervals, correlation, and inference for data-driven decisions.','SciPy · Statsmodels · NumPy','#'],
+      ['🖼️','blue','Computer Vision','CNN','Convolutional Neural Networks for image recognition — filters, pooling, feature maps, and architectures like VGG & ResNet.','Conv2D · Transfer Learning','https://cnn-study-app.onrender.com'],
+      ['💬','green','Language AI','NLP','Process and understand human language — tokenisation, word embeddings, sentiment analysis, and BERT fine-tuning.','NLTK · spaCy · HuggingFace','#'],
+      ['📎','maroon','Gen AI','RAG','Retrieval-Augmented Generation — combine vector stores with LLMs to build intelligent, knowledge-grounded Q&A applications.','LangChain · FAISS · ChromaDB','https://rag-study-app-qflt.onrender.com'],
+      ['✨','pink','Gen AI','Gen AI','Explore generative models — prompt engineering, LLM APIs, diffusion models, agents, and building real-world GenAI applications.','OpenAI · Claude · LangChain','#'],
+      ['💡','pink','Explainable AI','SHAP','Open the black box — understand model predictions with Shapley values, feature importance, summary plots, and local vs. global explanations.','SHAP · XGBoost · Scikit-learn','#']
+    ];
+
+    // Study Materials: [icon, color, tag, title, description, type, link]
+    const D = 'https://drive.google.com/file/d/';
+    const materials = [
+      ['🐍','blue','Programming','Python','Core Python concepts, syntax, data structures, OOP, and scripting essentials for data science and ML workflows.','📄 Drive File',D+'193KVM-Ej795X9qB_sHrCHOqeg4DLyi_2/view?usp=sharing'],
+      ['🗄️','maroon','Database','SQL','Querying, joins, aggregations, window functions, and database design fundamentals for data analysis.','📄 Drive File',D+'1uuaOrTSY2dyud7tSmbtnrk-j_ok_7HI9/view?usp=sharing'],
+      ['🐼','green','Data Wrangling','Pandas','DataFrames, indexing, merging, groupby operations, and data manipulation techniques for efficient analysis.','📄 Drive File',D+'1CgXKHDrg-Sb0a1sa1c6WDzScXxqlPRPC/view?usp=sharing'],
+      ['🔢','green','Computation','NumPy','Arrays, matrix operations, broadcasting, linear algebra, and numerical computing for scientific workflows.','📄 Drive File',D+'1PsAMVn9k1G9qE1Co7mkGqnxmUJCSOhtP/view?usp=sharing'],
+      ['📐','yellow','Foundations','Mathematics for Data Science','Linear algebra, calculus, and matrix operations essential for understanding ML algorithms at a deeper level.','📁 Drive Folder','https://drive.google.com/drive/folders/1MwsZ3elkhDD7CQoDR0h-0nhOGX8-MXjJ?usp=sharing'],
+      ['📊','yellow','Foundations','Probability & Stats',"Distributions, hypothesis testing, Bayes' theorem, and statistical inference for data-driven decision making.",'📄 Drive File',D+'1FJtsmE_9R-KWaw1eG1MQuBmku-yfGt-p/view?usp=sharing'],
+      ['📈','pink','Visualization','Data Visualization','Charts, plots, dashboards, and storytelling with data using Matplotlib, Seaborn, and Plotly.','📄 Drive File',D+'1clGDWntthzGBaQh6g3mLUndkc_7YeGNG/view?usp=sharing'],
+      ['🎯','blue','ML Core','Machine Learning','Supervised algorithms, model evaluation, pipelines, and best practices for building production-ready ML models.','📁 Drive Folder','https://drive.google.com/drive/folders/1YWsPFKeroYu5RtCwsIZFTjQZ8okk1Z0J?usp=sharing'],
+      ['🔍','pink','ML Core','Unsupervised Learning','Clustering, dimensionality reduction, and pattern discovery techniques for unlabeled datasets.','📝 Google Doc','https://docs.google.com/document/d/1Ch3OUvaYAVlLfg_fD12nFaiyjiNNNWk2IFxUTPM4RYc/edit?usp=sharing'],
+      ['🧠','maroon','Deep Learning','Deep Learning','Neural network architectures, training strategies, regularization, and deployment for real-world deep learning tasks.','📄 Drive File',D+'1HmN1ruhaqm7YNdJku1kTtc6xO5z8dXw2/view?usp=sharing'],
+      ['💬','green','Language AI','NLP','Text preprocessing, embeddings, transformers, and language model fine-tuning for natural language tasks.','📁 Drive Folder','https://drive.google.com/drive/folders/1G5geCyxriHRfgOMLOxkg3zLuj6re-PDZ?usp=sharing'],
+      ['⚡','blue','Deployment','FastAPI','Build high-performance REST APIs for ML models — routing, validation, async handling, and API documentation.','📄 Drive File',D+'1Cp-Hc-dsBEVooWHwfVxGS2gjCde6wHpJ/view?usp=sharing'],
+      ['🌶️','maroon','Deployment','Flask','Lightweight web framework for deploying ML models — routes, templates, REST endpoints, and app structuring.','📄 Drive File',D+'1l8Fh5rnLuI501b03MIjZmGXFVW7JWvs_/view?usp=sharing'],
+      ['🔬','yellow','MLOps','MLflow','Experiment tracking, model registry, versioning, and deployment pipelines for scalable ML operations.','📄 Drive File',D+'1P2u3k35V5PEMyMakN8yZ3vC0feaxfy1l/view?usp=sharing']
+    ];
+
+    // Sessions: S(label, date, englishLink, tamilLink) — leave '#' until the link is ready
+    const S = (label, date, eng = '#', tam = '#') => ({ label, date, eng, tam });
+
+    // Revision Sessions: [icon, color, tag, title, description, sessions[]]
+    const revision = [
+      ['🗄️','maroon','Database','SQL','Queries, joins, aggregations and window functions.',[S('Session','13 Feb 2026')]],
+      ['🐼','green','Data Wrangling','Data Cleaning with Pandas','Missing values, duplicates, outliers and transformations.',[S('Session','14 Feb 2026')]],
+      ['📈','pink','Visualization','EDA & Data Visualization','Explore data and tell stories with charts.',[S('Session','20 Feb 2026')]],
+      ['📊','yellow','Foundations','Statistics','Distributions, hypothesis testing and inference.',[S('Session','21 Feb 2026')]],
+      ['🎯','blue','ML Core','ML – Conceptual (Supervised)','Classification and regression concepts and evaluation.',[S('Session','27 Feb 2026')]],
+      ['💻','blue','ML Project','ML – Coding End-to-End','Build a complete ML project from data to model.',[S('Session','28 Feb 2026')]],
+      ['⏳','yellow','ML Core','ML – Time Series','Trend, seasonality, forecasting and evaluation.',[S('Session','6 Mar 2026')]],
+      ['🔍','pink','ML Core','ML – Unsupervised','Clustering, PCA and anomaly detection.',[S('Session','7 Mar 2026')]],
+      ['🧠','maroon','Deep Learning','Deep Learning','Neural networks, optimizers and regularisation.',[S('Session','13 Mar 2026')]],
+      ['🖼️','blue','Computer Vision','Computer Vision','CNNs, image classification and transfer learning.',[S('Session','14 Mar 2026')]],
+      ['💬','green','Language AI','NLP','Text preprocessing, embeddings and transformers.',[S('Session','20 Mar 2026')]],
+      ['☁️','yellow','Deployment','AWS (SageMaker) + Docker','Containerise and deploy ML models on the cloud.',[S('Session','3 Apr 2026')]]
+    ];
+
+    // Project Series: same shape as revision
+    const projects = [
+      ['🧠','maroon','Final Project','Deep Learning & Computer Vision','Hands-on final project combining deep learning with computer vision.',[S('Day 1','17 Jul 2026'),S('Day 2','18 Jul 2026')]],
+      ['💬','green','Final Project','Natural Language Processing','Build an end-to-end NLP project from preprocessing to model.',[S('Day 1','24 Jul 2026'),S('Day 2','25 Jul 2026')]],
+      ['📎','pink','Final Project','RAG','Build a retrieval-augmented generation application.',[S('Day 1','31 Jul 2026'),S('Day 2','1 Aug 2026')]],
+      ['🎯','blue','Final Project','Machine Learning Project','A complete machine learning project, end to end.',[S('Day 1','14 Aug 2026')]],
+      ['🤖','yellow','Final Project','Agentic AI Fundamentals','Build an AI agent with LangChain.',[S('Day 1','21 Aug 2026')]]
+    ];
+
+    /* ════════════════ RENDERING ════════════════ */
+    const delay = i => `style="animation-delay:${(i * 0.04).toFixed(2)}s"`;
+    const isLink = u => u && u !== '#';
+
+    function renderLinkCards(id, data, arrow) {
+      document.getElementById(id).innerHTML = data.map(([icon, color, tag, title, desc, meta, url], i) => {
+        const ext = isLink(url) ? ' target="_blank" rel="noopener noreferrer"' : '';
+        return `<a href="${url}"${ext} class="card c-${color}" ${delay(i)}>
+          <div class="card-top"><div class="card-icon">${icon}</div><span class="card-tag">${tag}</span></div>
+          <div><h3 class="card-title">${title}</h3><p class="card-desc">${desc}</p></div>
+          <div class="card-footer"><span class="card-meta">${meta}</span><span class="card-arrow">${arrow}</span></div>
+        </a>`;
+      }).join('');
+    }
+
+    const lbtn = (u, cls, txt) =>
+      `<a class="lbtn ${cls}${isLink(u) ? '' : ' pending'}" href="${u || '#'}" target="_blank" rel="noopener noreferrer">${txt}</a>`;
+
+    function renderSessionCards(id, data) {
+      document.getElementById(id).innerHTML = data.map(([icon, color, tag, title, desc, sessions], i) => `
+        <div class="card c-${color}" ${delay(i)}>
+          <div class="card-top"><div class="card-icon">${icon}</div><span class="card-tag">${tag}</span></div>
+          <div><h3 class="card-title">${title}</h3><p class="card-desc">${desc}</p></div>
+          <div class="sessions">${sessions.map(s => `
+            <div class="session">
+              <div class="session-info"><span class="session-label">${s.label}</span><span class="session-date">${s.date}</span></div>
+              <div class="session-btns">${lbtn(s.eng, 'eng', 'English')}${lbtn(s.tam, 'tam', 'தமிழ்')}</div>
+            </div>`).join('')}
+          </div>
+        </div>`).join('');
+    }
+
+    renderLinkCards('apps-grid', apps, '→');
+    renderLinkCards('materials-grid', materials, '↗');
+    renderSessionCards('revision-grid', revision);
+    renderSessionCards('projects-grid', projects);
+
+    // Keep every count in sync with the data automatically
+    const n = { apps: apps.length, materials: materials.length, revision: revision.length, projects: projects.length };
+    for (const k in n) {
+      document.getElementById('count-' + k).textContent = n[k];
+      document.getElementById('stat-' + k).textContent = n[k];
+    }
+    document.getElementById('sc-apps').textContent = n.apps + ' apps available';
+    document.getElementById('sc-materials').textContent = n.materials + ' resources available';
+    document.getElementById('sc-revision').textContent = n.revision + ' topics available';
+    document.getElementById('sc-projects').textContent = n.projects + ' projects available';
+    document.getElementById('chip-materials').textContent = n.materials + ' Resources';
+    document.getElementById('chip-revision').textContent = n.revision + ' Topics';
+    document.getElementById('chip-projects').textContent = n.projects + ' Projects';
+
+    /* ════════════════ TABS ════════════════ */
     function switchPage(page) {
-      // hide all pages
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      // deactivate all tabs
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-
-      // show selected page
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.page === page));
       document.getElementById('page-' + page).classList.add('active');
-
-      // activate correct tab
-      const tabs = document.querySelectorAll('.tab-btn');
-      if (page === 'apps')      tabs[0].classList.add('active');
-      if (page === 'materials') tabs[1].classList.add('active');
-
-      // scroll to top of content
       window.scrollTo({ top: 70, behavior: 'smooth' });
     }
   </script>
-
 </body>
 </html>
